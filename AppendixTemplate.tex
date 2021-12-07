@@ -1,0 +1,131 @@
+\documentclass[10pt,a4paper,twoside]{report}
+\include{AppendixGenerationFiles/LatexFiles/preamble}
+ 
+%\usepackage{array}
+\usepackage{etoolbox}
+
+\makeatletter
+\pretocmd{\chapter}{\addtocontents{toc}{\protect\addvspace{10\p@}}}{}{}
+\pretocmd{\section}{\addtocontents{toc}{\protect\addvspace{5\p@}}}{}{}
+\makeatother
+
+\begin{document}
+	\large
+	\setlength{\unitlength}{1cm}
+\ \linebreak
+\vfill
+\thispagestyle{empty}
+\setlength{\unitlength}{1cm}
+\begin{picture}(0,0)
+%\put( -4,24.5 ){\includegraphics[height=2.0cm]{AppendixGenerationFiles/LatexFiles/client_logo.png}}
+\put( 8.5,25 ){\includegraphics[height=1.1cm]{AppendixGenerationFiles/LatexFiles/COWI_logo.png}}
+
+
+\put( 8.5, 22.5 ){\begin{minipage}[b]{18cm}\scriptsize
+\setlength{\tabcolsep}{2pt} % Default value: 6pt
+%\renewcommand{\arraystretch}{1.5} % Default value: 1
+\begin{tabular}{rlllll}
+\textcolor{COWI}{\tiny{ADRESS}} & COWI A/S \\
+ & Hamburg Branch Office/ \\
+ & Zweigneiderlassung Hamburg \\
+ & Am Sandtorkai 48 \\
+ & D-20457 Hamburg \\
+ & Germany \\
+\textcolor{COWI}{\tiny{TEL}} & +49 40 32 52 97 64 \\
+ %\textcolor{COWI}{\tiny{FAX}} & +45 56 40 99 99 \\
+ \textcolor{COWI}{\tiny{WWW}} & cowi.com \\
+\end{tabular}
+\end{minipage}}
+
+
+\put(-4,16){\parbox[c]{18cm}{\large {\small \input{AppendixGenerationFiles/ProjectSite/Document_date}}\\
+			{\small \input{AppendixGenerationFiles/ProjectSite/Project_client}}\vspace*{3ex}\\
+			{\Huge ARCADIS OST 1 DD}\vspace*{2ex}\\
+			{\small PILE DRIVEABILITY ANALYSIS WTG}\vspace*{2ex}\\
+			{\small APPENDIX FOR WTG \ID_location}}}
+\input{AppendixGenerationFiles/ProjectSite/FrontpageTable}
+\end{picture}
+
+\newpage
+\setlength{\unitlength}{1pt}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhf{} % Added    		
+    		\fancyhead[LE]{\scriptsize\sf\hspace{-1.1cm} 
+    		\begin{tabular}{rl}
+    			& \includegraphics[height=0.3cm]{AppendixGenerationFiles/LatexFiles/COWI_logo.png}  \\ 
+    			\arabic{page} & \input{AppendixGenerationFiles/ProjectSite/Project_name}\unskip  \\ 			
+    			& PILE DRIVEABILITY ANALYSIS WTG - APPENDIX FOR WTG {\ID_location} \\
+			\end{tabular}    		
+    		}
+    		
+    		
+    		\fancyhead[RO]{\scriptsize\sf\hspace{0cm} 
+    		\begin{tabular}{rl}
+    			\includegraphics[height=0.3cm]{AppendixGenerationFiles/LatexFiles/COWI_logo.png} &  \\ 
+    			\input{AppendixGenerationFiles/ProjectSite/Project_name}\unskip & \arabic{page} \\
+				 PILE DRIVEABILITY ANALYSIS WTG - APPENDIX FOR WTG {\ID_location} & \\
+			\end{tabular}    		
+    		}
+			
+			
+			
+
+ 		
+%\lhead{}
+\rfoot{\sf\vspace{-0.5cm}\tiny}
+\cfoot{}
+\newgeometry{top=3cm,bottom=2cm,left=3cm,right=2.5cm}
+\setlength{\oddsidemargin}{1cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Table of content starts, ToC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setcounter{page}{1}
+\renewcommand\cftchapfont{\mdseries}
+\renewcommand\cftchappagefont{\mdseries}
+\setlength{\cftpartindent}{0em}
+\setlength{\cftchapindent}{0em}
+\setlength{\cftsecindent}{0em}
+\setlength{\cftchapnumwidth}{3em}
+\setlength{\cftsecnumwidth}{3em}
+\renewcommand*{\contentsname}{\normalfont\textcolor{COWI}{CONTENTS}}
+\renewcommand{\cftdot}{}
+\vspace{5cm}
+\tableofcontents\thispagestyle{fancy} 
+\normalsize
+%PLEASE NOTE THAT REFERENCE DETAILS ARE GIVEN IN THE MAIN REPORT A071540-RP-DD-12.
+
+
+\vfill
+{\scriptsize Appendix generated on \today} % \today~write this for text after
+
+\newpage
+
+\rfoot{\sf\vspace{-1cm}\tiny \input{AppendixGenerationFiles/ProjectLocation/footer}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix start %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\include{All_Chapter}
+\input{AppendixGenerationFiles/TemplateFiles/Main_Body}
+
+%\include{AppendixGenerationFiles/TemplateFiles/Soil}
+%
+%\include{AppendixGenerationFiles/TemplateFiles/Pile_geometry_Chapter}
+%
+%\include{AppendixGenerationFiles/TemplateFiles/Hammer_input_Chapter}
+%
+%
+%
+%\chapter{Results}\label{sec_4}
+%The main results of the pile driveability analysis for WTG \ID_location are summarised in the following.
+%
+%\input{AppendixGenerationFiles/TemplateFiles/SRD_Section}
+%
+%\include{AppendixGenerationFiles/TemplateFiles/Blow_Count_Section}
+%
+%\include{AppendixGenerationFiles/TemplateFiles/Stress_Section}
+%
+%\include{AppendixGenerationFiles/TemplateFiles/Fatigue_Section}
+
+
+\end{document}
