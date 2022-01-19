@@ -6,13 +6,13 @@ function [Settings] = Initialize()
 
 Range={'Locations' 'B2:O200'};
 Sheets={'LOCATIONS'};
-Files={'PDACalc.xlsx'};
+Files={'input\PDACalc.xlsx'};
 Settings=ExcelSett(Files,Sheets,Range);
 
 
 Range={'LocationSwitch' 'A2:B200'};
 Sheets={'LOCATIONS'};
-Files={'PDACalc.xlsx'};
+Files={'input\PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range);
 
 % Load calculations settings from Excel
@@ -27,7 +27,7 @@ Range={'Project' 'B3:H14'
     'DatabaseFSwitch', 'I12:J113'
     };
 Sheets={'PROJ'};
-Files={'PDACalc.xlsx'};
+Files={'input\PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 %Settings=NameSett(Sett,Settings);
 
@@ -36,17 +36,17 @@ Range={'AppInfo' 'B2:C13'
     'AppRevisionTable' 'B16:G25'   
     'SwitchApp'  'K3:W3'};
 Sheets={'Appendix'};
-Files={'PDACalc.xlsx'};
+Files={'input\PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 
 Range={'Plots' 'C6:AA40'};
 Sheets={'Plots'};
-Files={'PDACalc.xlsx'};
+Files={'input\PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 
 Range={'DBFatDam' 'C6:J40'};
 Sheets={'DataBase_Fatigue'};
-Files={'PDACalc.xlsx'};
+Files={'input\PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 
 
