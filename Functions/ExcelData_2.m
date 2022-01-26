@@ -16,7 +16,7 @@ if nargin ==3 || nargin==4
     
         filename=Files{o};
          qs=numel(Files)-o;
-        clc;
+        %clc;
         fprintf('Please wait %d second ',qs)
         fprintf(1,repmat('\n',1,1));
         waitbar(o/N_File,h);
