@@ -13,7 +13,7 @@ function Data = InitializeLoop(Settings,A,Data,locations,locLoop)
         'SCF'          'G2:J36'
         'Selected_Points' 'L2:N14'
         'SRD_prop'  'Q2:AG30'};
-    Files={'PDACalc.xlsx'};
+    Files={'input\PDACalc.xlsx'};
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);   % PNGI
     
     
@@ -85,7 +85,7 @@ if A.Database == 1
         %%% PNGI 
 % % % % % % % % % %         Data.(Data.loc{i,1}).SoilData       = Input_Smatrix_DB(Settings,Data.loc(i,:),DataDB);
         %Data.(Data.loc{i,1}).CPTData
-        clc;
+        %clc;
     end
     disp('Database input used')
 % else

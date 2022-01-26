@@ -1,4 +1,4 @@
-clc; close all; clear all;
+close all; clear all; % clc
 
 %% Input
 % ID = {'EW1_15','EW1_16','EW1_18','EW1_24','EW1_32','EW1_33','EW1_37','EW1_39','EW1_41','EW1_43','EW1_47','EW1_55'};
