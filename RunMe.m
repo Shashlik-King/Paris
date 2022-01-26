@@ -2,8 +2,8 @@ clear all; close all;
 %% Present script performs batch calculations for pile driveability analysis using DIGW,  test
 % Set GRLWeap installation folder TEST 1 2   Test for Cospin Gruop
 
-DIGWFolder={'C:\PDI\GRLWEAP_2010'}; %remote PC
-% DIGWFolder={'C:\GRLWEAP'}; % FKMV PC
+% DIGWFolder={'C:\PDI\GRLWEAP_2010'}; %remote PC
+DIGWFolder={'C:\GRLWEAP'}; % FKMV PC
 pythonPath ='C:\ProgramData\Anaconda3\envs\py373\python.exe';
 
 %% Initialize calculation
