@@ -6,6 +6,9 @@ DIGWFolder={'C:\PDI\GRLWEAP 2010'}; %remote PC
 % DIGWFolder={'C:\GRLWEAP'}; % FKMV PC
 pythonPath ='C:\ProgramData\Anaconda3\envs\py373\python.exe';
 
+%%Version number is automatically updated by release pipeline
+CodriveVersion           = 'DevelopmentVersion';
+
 %% Initialize calculation
 addpath('Functions')        % Adding folder with functions to path
 [Settings]=Initialize();    % Import defined settings from excel file
