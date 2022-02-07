@@ -1,14 +1,10 @@
 function [Settings] = Initialize()
-%function [Settings,Data] = Initialize()
-%INITIALIZE Summary of this function goes here
-%   Detailed explanation goes here
-% Load Locations from Excel
 
+% Load Locations from Excel
 Range={'Locations' 'B2:O200'};
 Sheets={'LOCATIONS'};
 Files={'PDACalc.xlsx'};
 Settings=ExcelSett(Files,Sheets,Range);
-
 
 Range={'LocationSwitch' 'A2:B200'};
 Sheets={'LOCATIONS'};
@@ -40,17 +36,17 @@ Sheets={'Appendix'};
 Files={'PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 
+% Load plot settings from Excel
 Range={'Plots' 'C6:AA40'};
 Sheets={'Plots'};
 Files={'PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 
+% Load fatigue settings from Excel
 Range={'DBFatDam' 'C6:J40'};
 Sheets={'DataBase_Fatigue'};
 Files={'PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range,Sett);
 
-
-
-
+% Add settings to general structure
 Settings=NameSett(Sett,Settings);
