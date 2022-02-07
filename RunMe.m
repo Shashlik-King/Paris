@@ -2,9 +2,9 @@ clear; close all; clc;
 %% Present script performs batch calculations for pile driveability analysis using DIGW,  test
 % Set GRLWeap installation folder TEST 1 2   Test for Cospin Gruop
 
-DIGWFolder={'C:\PDI\GRLWEAP 2010'}; %remote PC
-% DIGWFolder={'C:\GRLWEAP'}; % FKMV PC
-pythonPath ='C:\ProgramData\Anaconda3\envs\py373\python.exe';
+DIGWFolder={'C:\PDI\GRLWEAP 2010'};
+
+pythonPath='C:\ProgramData\Anaconda3\envs\py373\python.exe';
 
 %% Initialize calculation
 addpath('Functions')        % Adding folder with functions to path
@@ -29,8 +29,8 @@ for locLoop = 1:size(locfirst,1)
     for CALC=1:size(Settings.Analysis,1)
         if Settings.AnalysisSwitch(CALC) == 1
             % Clear variables from workspace from previous run
-           clearvars -except  pythonPath GE_Data GE_SRD  GE_filelist A Settings locfirst PlotOpt CALC  locLoop  DatabaseRev % Remove in order to ensure no values mistakenly used from previous run - these values are stored at the end of the loop
-               
+            clearvars -except  pythonPath GE_Data GE_SRD  GE_filelist A Settings locfirst PlotOpt CALC  locLoop  DatabaseRev % Remove in order to ensure no values mistakenly used from previous run - these values are stored at the end of the loop
+            
             
             % Generate index for settings
             A = IndexA(Settings,CALC);
@@ -92,26 +92,17 @@ for locLoop = 1:size(locfirst,1)
             disp('--------------------------------------------------')
             %%%%%%%%%%%% Writting the Python Exchange files%%%%%%%%%%%%%%%%%%%
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force')
+            if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force') || strcmp(Settings.OutPutStyle{A.Analysis},'Displacement') || strcmp(Settings.OutPutStyle{A.Analysis},'Velocity') || strcmp(Settings.OutPutStyle{A.Analysis},'Stress')
                 WritePythonExchangeFile(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),Settings,A,loc,locLoop);
             end
-            
-            % eval(['output_',locations{locLoop,1},'_',(A.SimulationLable),'.SRD=GE_SRD;']);
-            % eval(['output_',locations{locLoop,1},'_',(A.SimulationLable),'.DATA=GE_Data;']);   
-            % save([pwd,'\Mat_files\output_',locations{locLoop,1},'_',(A.SimulationLable),'.mat'],['output_',locations{locLoop,1},'_',(A.SimulationLable)])
-    
-            %eval([locations{locLoop,1},'_',(A.SimulationLable),'.SRD=GE_SRD;']);
             eval([locations{locLoop,1},'_',(A.SimulationLable),'.SRD=GE_SRD.',(A.SimulationLable),'.',locations{locLoop,1},';']);
-
-            eval([locations{locLoop,1},'_',(A.SimulationLable),'.DATA=GE_Data.',(A.SimulationLable),'.',locations{locLoop,1},';']); 
-            eval([locations{locLoop,1},'_',(A.SimulationLable),'.Settings=Settings;']); 
-
+            eval([locations{locLoop,1},'_',(A.SimulationLable),'.DATA=GE_Data.',(A.SimulationLable),'.',locations{locLoop,1},';']);
+            eval([locations{locLoop,1},'_',(A.SimulationLable),'.Settings=Settings;']);
             save([pwd,'\Output\',locations{locLoop,1},'_',(A.SimulationLable),'.mat'],[locations{locLoop,1},'_',(A.SimulationLable)])
         end
     end
     
     GeneralGWOplot(GE_Data,GE_SRD,Settings,A,PlotOpt,locations,locLoop)
-    
     
     
     %%%%Store the Data in a Variable
@@ -120,16 +111,14 @@ for locLoop = 1:size(locfirst,1)
     StoredData.filelist = GE_filelist;
     StoredData.A = A;
     StoredData.SRD = GE_SRD;
-%      
-% 
-%     save([pwd,'\Plots\DocumentationData',locations{locLoop,1},'.mat'],'StoredData')
-    
+    save([pwd,'\Plots\DocumentationData',locations{locLoop,1},'.mat'],'StoredData')
     
     if Settings.Database.FSwitch
         database_write_Fatigue(GE_Data,GE_SRD,Settings,A,DatabaseRev,locations,locLoop)
     end
     end
 end
+
 
 
 if any(strcmp(Settings.OutPutStyle,'Acceleration')) && Settings.Appendix.Swtich
@@ -141,10 +130,6 @@ if Settings.Appendix.Swtich
     AppendixGeneration(GE_Data,Settings,A,locLoop)
 end
 
-% % if any(strcmp(Settings.OutPutStyle,'Acceleration')) && any(strcmp(Settings.OutPutStyle,'Force'))
-% %     system([pythonPath,' conventor.py'])
-% % end
-         
 %%% Code to combine plots put in here
 
 % Shut down pc after completing run (can be used when looping over many locations over night)
