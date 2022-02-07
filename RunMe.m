@@ -2,14 +2,15 @@ clear; close all; clc;
 %% Present script performs batch calculations for pile driveability analysis using DIGW,  test
 % Set GRLWeap installation folder TEST 1 2   Test for Cospin Gruop
 
-DIGWFolder={'C:\PDI\GRLWEAP 2010'};
+%DIGWFolder={'C:\PDI\GRLWEAP 2010'};
 
-pythonPath='C:\ProgramData\Anaconda3\envs\py373\python.exe';
+%pythonPath='C:\ProgramData\Anaconda3\envs\py373\python.exe';
 
 %% Initialize calculation
 addpath('Functions')        % Adding folder with functions to path
 [Settings]=Initialize();    % Import defined settings from excel file
-Settings.DIGWFolder=DIGWFolder(1);
+% Settings.DIGWFolder=DIGWFolder(1);
+pythonPath = Settings.pythonPath;
 Settings.PlotTitle = 0;     % Switch for adding title or not for plots
 
 mkdir ('Python_Exchange');

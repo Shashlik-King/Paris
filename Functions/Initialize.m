@@ -19,6 +19,7 @@ Sett=ExcelSett(Files,Sheets,Range);
 Range={'Project' 'B3:H14'
     'Database' 'I3:M7'
     'DatabaseSetting' 'L3:M6'
+    'Paths' 'L9:M10'
     'Analysis' 'B19:AA30'
     'Model' 'B35:H46'
     'SoilSett' 'AW5:BG9'

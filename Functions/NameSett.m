@@ -43,6 +43,10 @@ Settings.Database.Rev.Soil = Sett.DatabaseSetting{2,2};
 Settings.Database.Rev.Attachments = Sett.DatabaseSetting{3,2};
 Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{4,2};
 
+% Paths
+Settings.DIGWFolder=Settings.Paths {1,2};
+Settings.pythonPath=Settings.Paths {2,2};
+
 % Calc
 %Settings.AlmHamre=cell2mat(Sett.Analysis(:,2));
 Settings.AlmHamre=1;
