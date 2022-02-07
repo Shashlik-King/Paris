@@ -2,14 +2,10 @@ clear; close all; clc;
 %% Present script performs batch calculations for pile driveability analysis using DIGW,  test
 % Set GRLWeap installation folder TEST 1 2   Test for Cospin Gruop
 
-%DIGWFolder={'C:\PDI\GRLWEAP 2010'};
-
-%pythonPath='C:\ProgramData\Anaconda3\envs\py373\python.exe';
 
 %% Initialize calculation
 addpath('Functions')        % Adding folder with functions to path
 [Settings]=Initialize();    % Import defined settings from excel file
-% Settings.DIGWFolder=DIGWFolder(1);
 pythonPath = Settings.pythonPath;
 Settings.PlotTitle = 0;     % Switch for adding title or not for plots
 
@@ -18,9 +14,7 @@ mkdir ('Plots');
 mkdir ('Output');
 
 PlotOpt=Plotoptions(Settings);
-
 DatabaseRev=FatigueDBopt(Settings);
-
 locfirst=Settings.Locations(any(cellfun(@(x)any(~isnan(x)),Settings.Locations(:,2)),2),:);
 
 %%Location Loop
@@ -41,12 +35,10 @@ for locLoop = 1:size(locfirst,1)
             loc=Settings.Locations(any(cellfun(@(x)any(~isnan(x)),Settings.Locations(:,A.CALC+1)),2),:);
             locations = [(loc(:,1)),loc(:,A.CALC+1) loc(:,end)];
             
-            
             % Import soil, pile and embedment information
             GE_Data.(A.SimulationLable).dummy=1;
             GE_Data.(A.SimulationLable) = InitializeLoop(Settings,A,GE_Data.(A.SimulationLable),locations,locLoop);
             GE_Data.(A.SimulationLable) = rmfield(GE_Data.(A.SimulationLable),'dummy'); % Remove the Dummy object
-            
             
             % Generate sub-folders
             mkdir (A.Folder);
@@ -79,7 +71,6 @@ for locLoop = 1:size(locfirst,1)
                 end
             end
             GE_filelist.(A.SimulationLable)=rmfield(GE_filelist.(A.SimulationLable),'dummy'); % Remove the Dummy object
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             
             %%%%%%%%%%%%%%%%%%%%%%%% Reading output%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -119,8 +110,6 @@ for locLoop = 1:size(locfirst,1)
     end
     end
 end
-
-
 
 if any(strcmp(Settings.OutPutStyle,'Acceleration')) && Settings.Appendix.Swtich
     disp('Appendix switch and time series analyses are activated...Please run the Conventor.py then press enter to create appendix')
