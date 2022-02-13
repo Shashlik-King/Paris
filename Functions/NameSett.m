@@ -17,6 +17,9 @@ Settings.CalculateFatigue=cell2mat(Sett.Project(:,7));
 % Plot
 Settings.Plots=Sett.Plots;
 
+% Excel
+Settings.Excel=Sett.Excel;
+
 % Database
 Settings.DBFatDam=Sett.DBFatDam;
 Settings.Database.FSwitch=Sett.DatabaseFSwitch{1,2};
@@ -32,8 +35,12 @@ Settings.Database.Rev.Attachments = Sett.DatabaseSetting{3,2};
 Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{4,2};
 
 % Paths
-Settings.DIGWFolder=Settings.Paths {1,2};
-Settings.pythonPath=Settings.Paths {2,2};
+Settings.DIGWFolder=Sett.Paths {1,2};
+Settings.pythonPath=Sett.Paths {2,2};
+
+% Output - Excel
+Settings.Excel_switch=Sett.Output;
+Settings.Excel_data = Sett.Excel;
 
 % Calc
 Settings.AlmHamre=1;
