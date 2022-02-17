@@ -1,0 +1,533 @@
+                                                                                
+                           GRLWEAP - Version 2010                               
+                  WAVE EQUATION ANALYSIS OF PILE FOUNDATIONS                    
+                                                                                
+          written by GRL Engineers, Inc. (formerly Goble Rausche Likins         
+         and Associates, Inc.) with cooperation from Pile Dynamics, Inc.        
+                 Copyright (c) 1998-2010, Pile Dynamics, Inc.                   
+                                                                                
+                                                                                
+                   ABOUT THE WAVE EQUATION ANALYSIS RESULTS                     
+                                                                                
+                                                                                
+The GRLWEAP program simulates the behavior of a preformed pile driven by        
+either an impact hammer or a vibratory hammer.  The program is based on         
+mathematical models, which describe motion and forces of hammer, driving        
+system, pile and soil under the hammer action.  Under certain conditions,       
+the models only crudely approximate, often complex, dynamic situations.         
+                                                                                
+A wave equation analysis generally relies on input data, which represents       
+normal situations.  In particular, the hammer data file supplied with the       
+program assumes that the hammer is in good working order.  All of the input     
+data selected by the user may be the best available information at the time     
+when the analysis is performed.  However, input data and therefore results      
+may significantly differ from actual field conditions.                          
+                                                                                
+Therefore, the program authors recommend prudent use of the GRLWEAP results.    
+Soil response and hammer performance should be verified by static and/or        
+dynamic testing and measurements.  Estimates of bending or other local          
+stresses (e.g., helmet or clamp contact, uneven rock surfaces etc.),            
+prestress effects and others must also be accounted for by the user.            
+                                                                                
+The calculated capacity - blow count relationship, i.e. the bearing graph,      
+should be used in conjunction with observed blow counts for the capacity        
+assessment of a driven pile.  Soil setup occurring after pile installation      
+may produce bearing capacity values that differ substantially from those        
+expected from a wave equation analysis due to soil setup or relaxation.  This   
+is particularly true for pile driven with vibratory hammers.  The GRLWEAP user  
+must estimate such effects and should also use proper care when applying blow   
+counts from restrike because of the variability of hammer energy, soil          
+resistance and blow count during early restriking.                              
+                                                                                
+Finally, the GRLWEAP capacities are ultimate values.  They MUST be reduced by   
+means of an appropriate factor of safety to yield a design or working load.     
+The selection of a factor of safety should consider the quality of the          
+construction control, the variability of the site conditions, uncertainties     
+in the loads, the importance of building and other factors.                     
+ 
+ Input  File: C:\USERS\FKMV\DESKTOP\CODRIVE\CODRIVE\BENCHMARK_UB_4000\REF_EW1_OSS_35_JBENCHMARK_UB_4000_5.GWW
+ Hammer File: C:\ProgramData\PDI\GRLWEAP\2010\Resource\HAMMER2010.GW
+ Hammer File Version:  2003 (17/10/2016)
+
+                        Input File Contents
+     ref_EW1_OSS_35_J Benchmark_UB_4000 5    
+ OUT OSG HAM STR FUL PEL  N SPL N-U P-D %SK ISM  0 PHI RSA ITR H-D MXT     DEx
+   0   01372   0   1   0 90   0   1   0   0   1  0   0   0   0   0   0   0.000
+    Pile g  Hammer g  Toe Area Pile Size           Pile Type
+     9.810     9.810  5419.247     0.000             Unknown
+      W Cp      A Cp      E Cp      T Cp       CoR      ROut      StCp
+  2575.100     0.000       0.0     0.000     0.800     3.000   38487.0
+      A Cu      E Cu      T Cu       CoR      ROut      StCu
+     0.000       0.0     0.000     0.000     0.000       0.0
+      LPle      APle      EPle      WPle      Peri        CI       CoR      ROut
+    72.000   7014.39  210000.0    77.500    21.583         0     0.000     0.000
+    12.000   7014.39  210000.0    77.500    21.583         0
+    12.000   5419.25  210000.0    77.500    21.677         0
+    72.000   5419.25  210000.0    77.500    21.677         0
+ Manufac  Hmr Name  HmrType No Seg-s
+ IHC      S-4000          3        9
+    Ram Wt     Ram L   Ram Dia   MaxStrk   RtdStrk    Efficy
+   1977.15  14450.00   1230.44      2.02      0.22      0.95
+    No. Assmbly Segs
+                   2
+  <----  Assembly Masses ----><----Assembly Stiffnesses---->
+  1071.745  1071.745     0.000  210973.6  210973.6       0.0
+  Non-Uni Ram Weights,   Stiffn.
+         1    46.212   54878.9
+         2    46.212   54878.9
+         3    46.212   54878.9
+         4   503.322  298637.4
+         5   503.322  298637.4
+         6   503.322  298637.4
+         7   109.516  222478.5
+         8   109.516  222478.5
+         9   109.516  222478.5
+    Stroke    Effic.  Pressure  R-Weight   T-Delay Exp-Coeff   Eps-Str  Total-AW
+    2.0200    0.9500    0.0000    0.0000    0.0000    0.0000    0.0000 3411.3999
+        Qs        Qt        Js        Jt        Qx        Jx      Rati      Dept
+     2.500     2.500     0.250     0.500     0.000     0.000     0.000     0.000
+  Research Soil Model: Atoe, Plug,  Gap, Q-fac
+     0.000     0.000     0.000     0.000
+  Research Soil Model: RD-skn: m, d, toe: m, d
+     0.000     0.000     0.000     0.000
+  Res. Distribution
+    Dpth    Rskn      Rtoe      Qs      Qt      Js      Jt   SU F   LimL    TSf0
+    0.00    0.00      0.00    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    0.00    0.08    239.60    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    0.50    1.07    159.80    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    0.50    2.60    479.85    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    1.00    5.18    740.37    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    1.10    5.75    793.00    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    1.10   15.39   2249.97    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    2.00   63.00  11203.37    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    2.00   84.10  16809.59    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    3.00  134.58  16248.08    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    3.50  166.62  16113.30    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    3.50  104.81  10460.87    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    4.00   57.67   3697.24    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    4.00   48.28   2276.08    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    5.00   70.51   2113.51    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+    5.00   75.00   3536.06    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+   72.00   75.00   3536.06    2.50    2.50    0.25    0.50   1.00   0.00   0.000
+  Gain/Loss factors: shaft and toe
+   1.00000   0.00000   0.00000   0.00000   0.00000
+   1.00000   0.00000   0.00000   0.00000   0.00000
+      Dpth         L      Wait      Strk      Eff.      Stff       CoR
+      4.00      0.00      0.00     0.000     0.950     0.000     0.000
+      5.00      0.00      0.00     0.000     0.950     0.000     0.000
+      0.00      0.00      0.00     0.000     0.000     0.000     0.000
+            GRLWEAP: WAVE EQUATION ANALYSIS OF PILE FOUNDATIONS                
+                                  Version 2010
+                                    SI Units                     
+
+                   ref_EW1_OSS_35_J Benchmark_UB_4000 5    
+                   ________________________________________
+
+            Hammer Model:   S-4000               Made by:      IHC     
+
+            No.    Weight    Stiffn       CoR     C-Slk     Dampg
+                       kN     kN/mm                  mm    kN/m/s
+              1    46.212
+              2    46.212   54878.9     1.000    0.0000
+              3    46.212   54878.9     1.000    0.0000
+              4   503.322   54878.9     1.000    0.0000
+              5   503.322  298637.4     1.000    0.0000
+              6   503.322  298637.4     1.000    0.0000
+              7   109.516  298637.4     1.000    0.0000
+              8   109.516  222478.5     1.000    0.0000
+              9   109.516  222478.5     1.000    0.0000
+      Helmet     2575.100   32811.0     0.800    3.0000     765.6
+      Combined Pile Top    184127.4
+
+       Assembly    Weight    Stiffn       CoR     C-Slk          
+                     kN       kN/mm                 mm           
+              1  1705.700  335767.9
+              2  1705.700  335767.9     0.850    3.0000
+
+HAMMER OPTIONS:           
+  Hammer File ID No.              1372  Hammer Type                Ext.Comb.
+
+HAMMER DATA:              
+  Ram Weight            (kN)   1977.15  Ram Length            (mm)  14450.00
+  Maximum (Eq) Stroke    (m)      2.02  Actual (Eq) Stroke     (m)      2.02
+  Efficiency                     0.950
+
+  Rated Energy          (kJ)   3999.78  Potential Energy      (kJ)   3993.85
+  Kinetic Energy        (kJ)   3794.15  Impact Velocity      (m/s)      6.14
+
+  HAMMER CUSHION                        PILE CUSHION              
+  Cross Sect. Area     (cm2)      0.00  Cross Sect. Area     (cm2)      0.00
+  Elastic-Modulus      (MPa)       0.0  Elastic-Modulus      (MPa)       0.0
+  Thickness             (mm)      0.00  Thickness             (mm)      0.00
+  Coeff of Restitution           0.800  Coeff of Restitution           1.000
+  RoundOut              (mm)       3.0  RoundOut              (mm)       0.0
+  Stiffness          (kN/mm)   38487.0  Stiffness          (kN/mm)       0.0
+
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+  Depth                  (m)       4.0  Standard Soil Setup 
+  Shaft Gain/Loss Factor         1.000  Toe Gain/Loss Factor           1.000
+
+  PILE PROFILE:                                                                 
+  Toe Area             (cm2)  5419.247  Pile Type                    Unknown
+  Pile Size             (cm)     0.000
+
+   L b Top     Area    E-Mod  Spec Wt    Perim  C Index  Wave Sp      EA/c      
+         m      cm2      MPa    kN/m3        m               m/s    kN/m/s      
+      0.00   7014.4  210000.    77.50   21.583        0     5156. 28570.37
+     12.00   7014.4  210000.    77.50   21.583        0     5156. 28570.37
+     12.00   5419.2  210000.    77.50   21.677        0     5156. 22073.19
+     72.00   5419.2  210000.    77.50   21.677        0     5156. 22073.19
+
+  Wave Travel Time 2L/c (ms)    27.930
+
+         Pile and Soil Model            Total Capacity Rut    (kN)    9405.3
+ No. Weight  Stiffn C-Slk T-Slk  CoR  Soil-S  Soil-D Quake  LbTop Perim    Area 
+         kN   kN/mm    mm    mm           kN     s/m    mm      m     m     cm2 
+   1   43.5   184128 3.000 0.000 1.00     0.0   0.000  2.50   0.80  21.6  7014.4
+   2   43.5   184128 0.000 0.000 1.00     0.0   0.000  2.50   1.60  21.6  7014.4
+  16   33.6   142255 0.000 0.000 1.00     0.0   0.000  2.50  12.80  21.7  5419.3
+  86   33.6   142255 0.000 0.000 1.00    28.1   0.250  2.50  68.80  21.7  5419.3
+  87   33.6   142255 0.000 0.000 1.00   342.2   0.250  2.50  69.60  21.7  5419.3
+  88   33.6   142255 0.000 0.000 1.00  1271.2   0.250  2.50  70.40  21.7  5419.3
+  89   33.6   142255 0.000 0.000 1.00  2164.7   0.250  2.50  71.20  21.7  5419.3
+  90   33.6   142255 0.000 0.000 1.00  1901.6   0.250  2.50  72.00  21.7  5419.3
+ Toe                                   3697.4   0.500  2.50
+
+   3172.290 kN total unreduced pile weight (g=  9.81 m/s2)
+   3172.290 kN total reduced pile weight   (g=  9.81 m/s2)
+
+  PILE, SOIL, ANALYSIS OPTIONS:                                
+  Non-uniform pile                      Pile Segments: Automatic  
+  No. of Slacks/Splices              0  Pile Damping           (%)         1
+                                        Pile Damping Fact.(kN/m/s)   441.464
+  Driveability Analysis                                        
+  Soil Damping Option            Smith                         
+  Max No Analysis Iterations         0  Time Increment/Critical          160
+  Output Time Interval               1  Analysis Time-Input   (ms)         0
+  Output Level: Normal                                         
+  Gravity Mass, Pile, Hammer:    9.810     9.810     9.810
+  Output Segment Generation: Automatic                         
+
+     Depth    Stroke    Efficy 
+         m         m          
+      4.00      2.02     0.950
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+             Rut=  9405.3, Rtoe =   3697.4      kN, Time Inc. =0.096 ms
+  No mxTForce   mxCForce   mxTStrss    mxCStrss    max V     max D      max Et
+         kN         kN         MPa        MPa        m/s        mm          kJ
+   1       0.    113778.        0.0     162.2       5.38     120.5     3238.32
+   2   -6601.    113167.       -9.4     161.3       5.37     120.5     3237.98
+   3  -13150.    112393.      -18.7     160.2       5.34     120.5     3237.85
+   4  -19580.    111465.      -27.9     158.9       5.30     120.4     3237.71
+   5  -26019.    110426.      -37.1     157.4       5.24     120.4     3237.56
+   6  -32152.    109308.      -45.8     155.8       5.19     120.4     3237.41
+   7  -37852.    108134.      -54.0     154.2       5.12     120.4     3237.24
+   8  -43013.    106957.      -61.3     152.5       5.04     120.4     3237.06
+   9  -47543.    105809.      -67.8     150.8       4.97     120.3     3236.85
+  10  -51373.    104708.      -73.2     149.3       4.89     120.3     3236.61
+  11  -54450.    103695.      -77.6     147.8       4.83     120.2     3236.34
+  12  -56748.    102825.      -80.9     146.6       4.76     120.2     3236.03
+  13  -58403.    102161.      -83.3     145.6       4.70     120.2     3235.67
+  14  -59393.    101731.      -84.7     145.0       4.64     120.1     3235.25
+  15  -59864.    101524.      -85.3     144.7       4.58     120.1     3234.74
+  16  -59953.    101516.     -110.6     187.3       4.51     120.0     3234.14
+  17  -59741.    101544.     -110.2     187.4       4.45     119.9     3233.52
+  18  -59342.    101572.     -109.5     187.4       4.39     119.8     3232.82
+  19  -58798.    101587.     -108.5     187.5       4.35     119.7     3232.05
+  20  -58137.    101624.     -107.3     187.5       4.30     119.6     3231.19
+  21  -57354.    101646.     -105.8     187.6       4.30     119.5     3230.23
+  22  -56461.    101671.     -104.2     187.6       4.30     119.4     3229.19
+  23  -55462.    101702.     -102.3     187.7       4.30     119.3     3228.04
+  24  -54391.    101719.     -100.4     187.7       4.30     119.2     3226.80
+  25  -53253.    101753.      -98.3     187.8       4.30     119.1     3225.46
+  26  -52057.    101778.      -96.1     187.8       4.29     119.0     3224.03
+  27  -50848.    101797.      -93.8     187.8       4.29     118.8     3222.49
+  28  -49627.    101832.      -91.6     187.9       4.29     118.7     3220.85
+  29  -48434.    101852.      -89.4     187.9       4.29     118.6     3219.09
+  30  -47303.    101880.      -87.3     188.0       4.29     118.4     3217.22
+  31  -46256.    101909.      -85.4     188.1       4.29     118.3     3215.23
+  32  -45319.    101924.      -83.6     188.1       4.29     118.1     3213.14
+  33  -44497.    101961.      -82.1     188.1       4.29     118.0     3210.91
+  34  -43769.    101985.      -80.8     188.2       4.29     117.8     3208.55
+  35  -43110.    102006.      -79.5     188.2       4.29     117.6     3206.06
+  36  -42490.    102039.      -78.4     188.3       4.29     117.5     3203.43
+  37  -41895.    102058.      -77.3     188.3       4.29     117.3     3200.66
+  38  -41293.    102088.      -76.2     188.4       4.29     117.1     3197.75
+  39  -40691.    102116.      -75.1     188.4       4.29     116.9     3194.68
+  40  -40081.    102132.      -74.0     188.5       4.29     116.7     3191.45
+  41  -39448.    102168.      -72.8     188.5       4.29     116.5     3188.05
+  42  -38810.    102190.      -71.6     188.6       4.29     116.3     3184.49
+  43  -38143.    102215.      -70.4     188.6       4.29     116.1     3180.75
+  44  -37476.    102246.      -69.2     188.7       4.30     115.8     3176.83
+  45  -36776.    102262.      -67.9     188.7       4.33     115.6     3172.73
+  46  -36065.    102296.      -66.5     188.8       4.37     115.4     3168.43
+  47  -35326.    102321.      -65.2     188.8       4.40     115.1     3163.94
+  48  -34576.    102340.      -63.8     188.8       4.44     114.9     3159.26
+  49  -33797.    102375.      -62.4     188.9       4.47     114.6     3154.37
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+             Rut=  9405.3, Rtoe =   3697.4      kN, Time Inc. =0.096 ms
+  No mxTForce   mxCForce   mxTStrss    mxCStrss    max V     max D      max Et
+         kN         kN         MPa        MPa        m/s        mm          kJ
+  50  -33000.    102396.      -60.9     188.9       4.51     114.4     3149.27
+  51  -32178.    102423.      -59.4     189.0       4.55     114.1     3143.97
+  52  -31333.    102453.      -57.8     189.1       4.59     113.9     3138.44
+  53  -30470.    102468.      -56.2     189.1       4.63     113.6     3132.69
+  54  -29575.    102504.      -54.6     189.1       4.67     113.3     3126.71
+  55  -28669.    102528.      -52.9     189.2       4.71     113.0     3120.51
+  56  -27737.    102549.      -51.2     189.2       4.76     112.8     3114.05
+  57  -26808.    102583.      -49.5     189.3       4.80     112.5     3107.34
+  58  -25859.    102602.      -47.7     189.3       4.84     112.2     3100.37
+  59  -24914.    102631.      -46.0     189.4       4.88     111.9     3093.15
+  60  -23959.    102660.      -44.2     189.4       4.92     111.6     3085.63
+  61  -23000.    102673.      -42.4     189.5       4.97     111.4     3077.80
+  62  -22056.    102711.      -40.7     189.5       5.01     111.1     3069.63
+  63  -21111.    102734.      -39.0     189.6       5.05     110.8     3061.05
+  64  -20166.    102758.      -37.2     189.6       5.09     110.6     3052.02
+  65  -19249.    102790.      -35.5     189.7       5.13     110.3     3042.44
+  66  -18319.    102808.      -33.8     189.7       5.17     110.1     3032.22
+  67  -17395.    102838.      -32.1     189.8       5.21     109.9     3021.27
+  68  -16487.    102861.      -30.4     189.8       5.25     109.6     3009.48
+  69  -15576.    102865.      -28.7     189.8       5.29     109.4     2996.78
+  70  -14674.    102856.      -27.1     189.8       5.34     109.2     2983.08
+  71  -13765.    102773.      -25.4     189.6       5.39     109.1     2968.33
+  72  -12808.    102566.      -23.6     189.3       5.45     108.9     2952.50
+  73  -11771.    102175.      -21.7     188.5       5.52     108.7     2935.52
+  74  -10632.    101514.      -19.6     187.3       5.60     108.6     2917.37
+  75   -9372.    100475.      -17.3     185.4       5.69     108.4     2898.02
+  76   -7986.     99029.      -14.7     182.7       5.80     108.3     2877.45
+  77   -6460.     97060.      -11.9     179.1       5.92     108.1     2855.65
+  78   -4794.     94551.       -8.8     174.5       6.06     108.0     2832.63
+  79   -2975.     91536.       -5.5     168.9       6.20     107.9     2808.39
+  80    -995.     87972.       -1.8     162.3       6.35     107.8     2782.96
+  81       0.     83865.        0.0     154.8       6.52     107.6     2756.37
+  82       0.     79306.        0.0     146.3       6.69     107.5     2728.67
+  83       0.     74271.        0.0     137.1       6.85     107.4     2699.92
+  84       0.     68862.        0.0     127.1       6.99     107.2     2670.18
+  85       0.     63125.        0.0     116.5       7.12     107.1     2639.54
+  86       0.     57182.        0.0     105.5       7.22     107.0     2605.05
+  87       0.     51082.        0.0      94.3       7.31     106.8     2532.79
+  88       0.     44334.        0.0      81.8       7.37     106.7     2325.10
+  89       0.     35604.        0.0      65.7       7.41     106.6     1919.05
+  90       0.     25081.        0.0      46.3       7.43     106.4     1667.14
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+     Rut   Bl Ct Stroke(eq.)  Ten Str   i   t CompStr   i   t ENTHRU
+      kN     b/m           m      MPa             MPa             kJ
+  9405.3     9.6        2.02  -110.63  16  33  189.81  69  18 3238.3
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+  Depth                  (m)       5.0  Standard Soil Setup 
+  Shaft Gain/Loss Factor         1.000  Toe Gain/Loss Factor           1.000
+
+  PILE PROFILE:                                                                 
+  Toe Area             (cm2)  5419.247  Pile Type                    Unknown
+  Pile Size             (cm)     0.000
+
+   L b Top     Area    E-Mod  Spec Wt    Perim  C Index  Wave Sp      EA/c      
+         m      cm2      MPa    kN/m3        m               m/s    kN/m/s      
+      0.00   7014.4  210000.    77.50   21.583        0     5156. 28570.37
+     12.00   7014.4  210000.    77.50   21.583        0     5156. 28570.37
+     12.00   5419.2  210000.    77.50   21.677        0     5156. 22073.19
+     72.00   5419.2  210000.    77.50   21.677        0     5156. 22073.19
+
+  Wave Travel Time 2L/c (ms)    27.930
+
+         Pile and Soil Model            Total Capacity Rut    (kN)    9108.9
+ No. Weight  Stiffn C-Slk T-Slk  CoR  Soil-S  Soil-D Quake  LbTop Perim    Area 
+         kN   kN/mm    mm    mm           kN     s/m    mm      m     m     cm2 
+   1   43.5   184128 3.000 0.000 1.00     0.0   0.000  2.50   0.80  21.6  7014.4
+   2   43.5   184128 0.000 0.000 1.00     0.0   0.000  2.50   1.60  21.6  7014.4
+  16   33.6   142255 0.000 0.000 1.00     0.0   0.000  2.50  12.80  21.7  5419.3
+  84   33.6   142255 0.000 0.000 1.00     1.2   0.250  2.50  67.20  21.7  5419.3
+  85   33.6   142255 0.000 0.000 1.00    47.2   0.250  2.50  68.00  21.7  5419.3
+  86   33.6   142255 0.000 0.000 1.00   526.3   0.250  2.50  68.80  21.7  5419.3
+  87   33.6   142255 0.000 0.000 1.00  1540.9   0.250  2.50  69.60  21.7  5419.3
+  88   33.6   142255 0.000 0.000 1.00  2357.4   0.250  2.50  70.40  21.7  5419.3
+  89   33.6   142255 0.000 0.000 1.00  1453.8   0.250  2.50  71.20  21.7  5419.3
+  90   33.6   142255 0.000 0.000 1.00  1068.6   0.250  2.50  72.00  21.7  5419.3
+ Toe                                   2113.5   0.500  2.50
+
+   3172.290 kN total unreduced pile weight (g=  9.81 m/s2)
+   3172.290 kN total reduced pile weight   (g=  9.81 m/s2)
+
+
+     Depth    Stroke    Efficy 
+         m         m          
+      5.00      2.02     0.950
+
+
+ INITIAL STATIC ANALYSIS: Total Wt, Sum(R)  9158.8  9108.9
+  Hammer+Pile Weight > Rult: Pile Runs
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+             Rut=  9108.9, Rtoe =   2113.5      kN, Time Inc. =0.096 ms
+  No mxTForce   mxCForce   mxTStrss    mxCStrss    max V     max D      max Et
+         kN         kN         MPa        MPa        m/s        mm          kJ
+   1       0.         0.        0.0       0.0       0.00       0.0        0.00
+   2       0.         0.        0.0       0.0       0.00       0.0        0.00
+   3       0.         0.        0.0       0.0       0.00       0.0        0.00
+   4       0.         0.        0.0       0.0       0.00       0.0        0.00
+   5       0.         0.        0.0       0.0       0.00       0.0        0.00
+   6       0.         0.        0.0       0.0       0.00       0.0        0.00
+   7       0.         0.        0.0       0.0       0.00       0.0        0.00
+   8       0.         0.        0.0       0.0       0.00       0.0        0.00
+   9       0.         0.        0.0       0.0       0.00       0.0        0.00
+  10       0.         0.        0.0       0.0       0.00       0.0        0.00
+  11       0.         0.        0.0       0.0       0.00       0.0        0.00
+  12       0.         0.        0.0       0.0       0.00       0.0        0.00
+  13       0.         0.        0.0       0.0       0.00       0.0        0.00
+  14       0.         0.        0.0       0.0       0.00       0.0        0.00
+  15       0.         0.        0.0       0.0       0.00       0.0        0.00
+  16       0.         0.        0.0       0.0       0.00       0.0        0.00
+  17       0.         0.        0.0       0.0       0.00       0.0        0.00
+  18       0.         0.        0.0       0.0       0.00       0.0        0.00
+  19       0.         0.        0.0       0.0       0.00       0.0        0.00
+  20       0.         0.        0.0       0.0       0.00       0.0        0.00
+  21       0.         0.        0.0       0.0       0.00       0.0        0.00
+  22       0.         0.        0.0       0.0       0.00       0.0        0.00
+  23       0.         0.        0.0       0.0       0.00       0.0        0.00
+  24       0.         0.        0.0       0.0       0.00       0.0        0.00
+  25       0.         0.        0.0       0.0       0.00       0.0        0.00
+  26       0.         0.        0.0       0.0       0.00       0.0        0.00
+  27       0.         0.        0.0       0.0       0.00       0.0        0.00
+  28       0.         0.        0.0       0.0       0.00       0.0        0.00
+  29       0.         0.        0.0       0.0       0.00       0.0        0.00
+  30       0.         0.        0.0       0.0       0.00       0.0        0.00
+  31       0.         0.        0.0       0.0       0.00       0.0        0.00
+  32       0.         0.        0.0       0.0       0.00       0.0        0.00
+  33       0.         0.        0.0       0.0       0.00       0.0        0.00
+  34       0.         0.        0.0       0.0       0.00       0.0        0.00
+  35       0.         0.        0.0       0.0       0.00       0.0        0.00
+  36       0.         0.        0.0       0.0       0.00       0.0        0.00
+  37       0.         0.        0.0       0.0       0.00       0.0        0.00
+  38       0.         0.        0.0       0.0       0.00       0.0        0.00
+  39       0.         0.        0.0       0.0       0.00       0.0        0.00
+  40       0.         0.        0.0       0.0       0.00       0.0        0.00
+  41       0.         0.        0.0       0.0       0.00       0.0        0.00
+  42       0.         0.        0.0       0.0       0.00       0.0        0.00
+  43       0.         0.        0.0       0.0       0.00       0.0        0.00
+  44       0.         0.        0.0       0.0       0.00       0.0        0.00
+  45       0.         0.        0.0       0.0       0.00       0.0        0.00
+  46       0.         0.        0.0       0.0       0.00       0.0        0.00
+  47       0.         0.        0.0       0.0       0.00       0.0        0.00
+  48       0.         0.        0.0       0.0       0.00       0.0        0.00
+  49       0.         0.        0.0       0.0       0.00       0.0        0.00
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+             Rut=  9108.9, Rtoe =   2113.5      kN, Time Inc. =0.096 ms
+  No mxTForce   mxCForce   mxTStrss    mxCStrss    max V     max D      max Et
+         kN         kN         MPa        MPa        m/s        mm          kJ
+  50       0.         0.        0.0       0.0       0.00       0.0        0.00
+  51       0.         0.        0.0       0.0       0.00       0.0        0.00
+  52       0.         0.        0.0       0.0       0.00       0.0        0.00
+  53       0.         0.        0.0       0.0       0.00       0.0        0.00
+  54       0.         0.        0.0       0.0       0.00       0.0        0.00
+  55       0.         0.        0.0       0.0       0.00       0.0        0.00
+  56       0.         0.        0.0       0.0       0.00       0.0        0.00
+  57       0.         0.        0.0       0.0       0.00       0.0        0.00
+  58       0.         0.        0.0       0.0       0.00       0.0        0.00
+  59       0.         0.        0.0       0.0       0.00       0.0        0.00
+  60       0.         0.        0.0       0.0       0.00       0.0        0.00
+  61       0.         0.        0.0       0.0       0.00       0.0        0.00
+  62       0.         0.        0.0       0.0       0.00       0.0        0.00
+  63       0.         0.        0.0       0.0       0.00       0.0        0.00
+  64       0.         0.        0.0       0.0       0.00       0.0        0.00
+  65       0.         0.        0.0       0.0       0.00       0.0        0.00
+  66       0.         0.        0.0       0.0       0.00       0.0        0.00
+  67       0.         0.        0.0       0.0       0.00       0.0        0.00
+  68       0.         0.        0.0       0.0       0.00       0.0        0.00
+  69       0.         0.        0.0       0.0       0.00       0.0        0.00
+  70       0.         0.        0.0       0.0       0.00       0.0        0.00
+  71       0.         0.        0.0       0.0       0.00       0.0        0.00
+  72       0.         0.        0.0       0.0       0.00       0.0        0.00
+  73       0.         0.        0.0       0.0       0.00       0.0        0.00
+  74       0.         0.        0.0       0.0       0.00       0.0        0.00
+  75       0.         0.        0.0       0.0       0.00       0.0        0.00
+  76       0.         0.        0.0       0.0       0.00       0.0        0.00
+  77       0.         0.        0.0       0.0       0.00       0.0        0.00
+  78       0.         0.        0.0       0.0       0.00       0.0        0.00
+  79       0.         0.        0.0       0.0       0.00       0.0        0.00
+  80       0.         0.        0.0       0.0       0.00       0.0        0.00
+  81       0.         0.        0.0       0.0       0.00       0.0        0.00
+  82       0.         0.        0.0       0.0       0.00       0.0        0.00
+  83       0.         0.        0.0       0.0       0.00       0.0        0.00
+  84       0.         0.        0.0       0.0       0.00       0.0        0.00
+  85       0.         0.        0.0       0.0       0.00       0.0        0.00
+  86       0.         0.        0.0       0.0       0.00       0.0        0.00
+  87       0.         0.        0.0       0.0       0.00       0.0        0.00
+  88       0.         0.        0.0       0.0       0.00       0.0        0.00
+  89       0.         0.        0.0       0.0       0.00       0.0        0.00
+  90       0.         0.        0.0       0.0       0.00       0.0        0.00
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+     Rut   Bl Ct Stroke(eq.)  Ten Str   i   t CompStr   i   t ENTHRU
+      kN     b/m           m      MPa             MPa             kJ
+  9108.9     0.0        2.02     0.00   1   0    0.00  69  18    0.0
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+                              SUMMARY OVER DEPTHS
+
+                      G/L at Shaft and Toe:  1.000  1.000
+    Depth      Rut   Frictn   End Bg   Bl Ct Com Str Ten Str  Stroke   ENTHRU
+        m       kN       kN       kN    bl/m     MPa     MPa       m       kJ
+      4.0   9405.3   5707.9   3697.4     9.6 189.814-110.630    2.02   3238.3
+      5.0   9108.9   6995.4   2113.5     0.0   0.000   0.000    2.02      0.0
+
+Total No. of Blows:        5; (driving time depends on blow rate)
+Starting at penetration     4.0 m 
+ 
+ ref_EW1_OSS_35_J Benchmark_UB_4000 5                               2022/01/26
+ COWI A/S                                                 GRLWEAP Version 2010
+
+
+               Table of Depths Analyzed with Driving System Modifiers
+
+               Temp.      Wait Equivalent Pressure             Stiffn.   Cushion
+     Depth    Length      Time    Stroke     Ratio   Efficy.    Factor       CoR
+         m         m        hr         m
+      4.00     72.00      0.00      2.02      0.00      0.95      1.00      1.00
+      5.00     72.00      0.00      2.02      0.00      0.95      1.00      1.00
+
+
+                         Soil Layer Resistance Values
+           Shaft     End   Shaft     Toe   Shaft     Toe    Soil   Limit   Setup
+   Depth    Res. Bearing   Quake   Quake Damping Damping   Setup Distance   Time
+       m     kPa      kN      mm      mm     s/m     s/m Normlzd       m     hrs
+    0.00    0.00    0.00   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.00    0.08  239.60   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.50    1.07  159.80   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.50    2.60  479.85   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.00    5.18  740.37   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.10    5.75  793.00   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.10   15.39 2249.97   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    2.00   63.0011203.37   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    2.00   84.1016809.59   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    3.00  134.5816248.08   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    3.50  166.6216113.30   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    3.50  104.8110460.87   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    4.00   57.67 3697.24   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    4.00   48.28 2276.08   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    5.00   70.51 2113.51   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    5.00   75.00 3536.06   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+   72.00   75.00 3536.06   2.500   2.500   0.250   0.500   1.000   0.000   0.000

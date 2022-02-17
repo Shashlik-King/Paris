@@ -85,7 +85,7 @@ if A.Database == 1
         %%% PNGI 
 % % % % % % % % % %         Data.(Data.loc{i,1}).SoilData       = Input_Smatrix_DB(Settings,Data.loc(i,:),DataDB);
         %Data.(Data.loc{i,1}).CPTData
-        clc;
+        %clc;
     end
     disp('Database input used')
 % else

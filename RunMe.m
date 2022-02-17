@@ -1,8 +1,11 @@
-clear; close all; clc;
+clear all; close all;
 %% Present script performs batch calculations for pile driveability analysis using DIGW,  test
 % Set GRLWeap installation folder TEST 1 2   Test for Cospin Gruop
+%%Version number is automatically updated by release pipeline
+CodriveVersion           = 'DevelopmentVersion';
 %% Initialize calculation
 addpath('Functions')        % Adding folder with functions to path
+
 [Settings]=Initialize();    % Import defined settings from excel file
 pythonPath = Settings.pythonPath;
 Settings.PlotTitle = 0;     % Switch for adding title or not for plots

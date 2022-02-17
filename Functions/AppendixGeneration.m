@@ -58,4 +58,4 @@ for c=1:size(Data.loc,1)
         end
     end
 end
-clc;    % Clear command window after files are generated
+% clc;    % Clear command window after files are generated

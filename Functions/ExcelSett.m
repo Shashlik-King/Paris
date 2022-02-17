@@ -10,7 +10,7 @@ if nargin ==3 || nargin==4
     h=waitbar(0,'Loading Excel...');
     for o = 1:N_File
         qs=numel(Files)-o;
-        clc;
+        %clc;
         fprintf('Please wait %d second ',qs)
         fprintf(1,repmat('\n',1,1));
         waitbar(o/N_File,h);
