@@ -12,17 +12,14 @@ Files={'Input\PDACalc.xlsx'};
 Sett=ExcelSett(Files,Sheets,Range);
 
 % Load calculations settings from Excel
-Range={'Project' 'B3:H14'
-    'Database' 'I3:M7'
-    'DatabaseSetting' 'L3:M7'
-    'Paths' 'L9:M10'
-    'Output' 'L13:M13'
-    'Analysis' 'B19:AA30'
-    'Model' 'B35:H46'
-    'SoilSett' 'AW5:BG9'
-    'EfficiencySteps'  'B51:C59'
-    'AppendixSwitch','I9:J9'
-    'DatabaseFSwitch', 'I12:J113'
+Range={'Project' 'C3:I22'
+    'DatabaseSetting' 'K3:L12'
+    'Paths' 'K17:L18'
+    'Output' 'N3:O5'
+    'Analysis' 'B26:AA45'
+    'Model' 'B49:H60'
+    'SoilSett' 'J49:T60'
+    'EfficiencySteps'  'B65:C81'
     };
 Sheets={'PROJ'};
 Files={'Input\PDACalc.xlsx'};

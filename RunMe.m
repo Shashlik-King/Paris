@@ -63,7 +63,7 @@ for locLoop = 1:size(locfirst,1)
                     % Run DIGW
                     if Settings.DIGW(A.Analysis)
                         back_path = pwd;
-                        cd(Settings.DIGWFolder{1})
+                        cd(Settings.DIGWFolder)
                         DIGW(GE_SRD.(A.SimulationLable),GE_filelist.(A.SimulationLable),Settings,A,locations,locLoop);   % run GRLweap files
                         cd(back_path)
                     end

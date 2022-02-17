@@ -17,29 +17,28 @@ Settings.CalculateFatigue=cell2mat(Sett.Project(:,7));
 % Plot
 Settings.Plots=Sett.Plots;
 
-% Excel
-Settings.Excel=Sett.Excel;
+% Fatigue Database
+Settings.DBFatDam=Sett.DBFatDam;
+Settings.Database.FSwitch=Sett.Output{2,2};
 
 % Database
-Settings.DBFatDam=Sett.DBFatDam;
-Settings.Database.FSwitch=Sett.DatabaseFSwitch{1,2};
-Settings.Database.LoadIterationName=Sett.DatabaseFSwitch{2,2};
-Settings.Database.DBname = Sett.Database{1,2};
-Settings.Database.Username = Sett.Database{2,2};
-Settings.Database.Password = Sett.Database{3,2};
-Settings.Database.Server = Sett.Database{4,2};
-Settings.Database.Table = Sett.Database{5,2};
-Settings.Database.Rev.Geometry = Sett.DatabaseSetting{1,2};
-Settings.Database.Rev.Soil = Sett.DatabaseSetting{2,2};
-Settings.Database.Rev.Attachments = Sett.DatabaseSetting{3,2};
-Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{4,2};
+Settings.Database.DBname = Sett.DatabaseSetting{1,2};
+Settings.Database.Username = Sett.DatabaseSetting{2,2};
+Settings.Database.Password = Sett.DatabaseSetting{3,2};
+Settings.Database.Server = Sett.DatabaseSetting{4,2};
+Settings.Database.Table = Sett.DatabaseSetting{5,2};
+Settings.Database.Rev.Geometry = Sett.DatabaseSetting{6,2};
+Settings.Database.Rev.Soil = Sett.DatabaseSetting{7,2};
+Settings.Database.Rev.Attachments = Sett.DatabaseSetting{8,2};
+Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{9,2};
+Settings.Database.LoadIterationName=Sett.DatabaseSetting{10,2};
 
 % Paths
-Settings.DIGWFolder=Sett.Paths {1,2};
+Settings.DIGWFolder= Sett.Paths {1,2};
 Settings.pythonPath=Sett.Paths {2,2};
 
 % Output - Excel
-Settings.Excel_switch=Sett.Output;
+Settings.Excel_switch=Sett.Output{3,2};
 Settings.Excel_data = Sett.Excel;
 
 % Calc
@@ -103,7 +102,7 @@ Settings.LimitDist=cell2mat(Sett.SoilSett(:,11));
 
 % Appendix generation
 
-Settings.Appendix.Swtich=Sett.AppendixSwitch{1,2};
+Settings.Appendix.Swtich=Sett.Output{1,2};
 Settings.Appendix.ProjectName = Sett.AppInfo{1,2};
 Settings.Appendix.ProjectNumber = Sett.AppInfo{2,2};
 Settings.Appendix.DocumentNoCOWI = Sett.AppInfo{3,2};
