@@ -2,7 +2,6 @@ function database_write_Fatigue(GE_Data,GE_SRD,Settings,A,DatabaseRev,locations,
 %--------------------------------------------------------------------------
 % CHANGE LOG
 % 2019.11.21    ASSV    Programming
-DatabaseRev.rev_sub=DatabaseRev.rev1.rev_sub;
 
 settings.db_server              = Settings.Database.Server;  %  Databse server
 settings.db_user                = Settings.Database.Username;    %   Database user

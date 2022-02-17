@@ -18,8 +18,10 @@ cd(path_base)
 name = cell(size(ID,1),size(Analyses,1)); 
 for i= 1:size(Analyses,1)
     for j = 1:size(ID,1)
-        name{j,i} = strcat(ID{j,1},'_',Analyses(i)); 
-        OUTPUT.(name{j,i}{1,1}) = load(name{j,i}{1,1});
+        if Settings.LocationSwitch(j,:)
+            name{j,i} = strcat(ID{j,1},'_',Analyses(i)); 
+            OUTPUT.(name{j,i}{1,1}) = load(name{j,i}{1,1});
+        end
     end
 end
 
@@ -55,7 +57,7 @@ for i = 1:size(Excel_setup,1)
             units_blow(1,end+1) = {'[Blows/m]'};
         end
         for j = 1:comp_num % add hammer efficiency
-            DATA_FINAL_blow = [DATA_FINAL_blow , SOD{j,1}(:,5)*100];
+            DATA_FINAL_blow = [DATA_FINAL_blow , Dmatrix{j,1}(:,6)*100];
             header_blow(1,end+1) = {['Hammer_efficiency_',Settings.Analysis{Excel_setup{i,4+2*j}}]};
             units_blow(1,end+1) = {'[%]'};
         end
@@ -100,8 +102,8 @@ for i = 1:size(Excel_setup,1)
         % Forces
         for j = 1:comp_num
             DATA = struct2cell(OUTPUT.([Excel_setup{i,3+2*j},'_',Settings.Analysis{Excel_setup{i,4+2*j}}]));
-            maxTen = DATA{1,1}.SRD.mxC;
-            maxCom = DATA{1,1}.SRD.mxT;
+            maxTen = DATA{1,1}.SRD.mxT;
+            maxCom = DATA{1,1}.SRD.mxC;
             pile_length = sum([DATA{1,1}.DATA.PileGeometry{:,4}]);
             for jj = 1:size(maxCom,1)
                 maxmaxTen{j,1}(jj,:) = min(maxTen(jj,:));
@@ -114,7 +116,7 @@ for i = 1:size(Excel_setup,1)
         units_force{1,1} = {'[m]'};
         for j = 1:comp_num % add blowcounts
             DATA_FINAL_force = [DATA_FINAL_force , maxmaxTen{j,1}, maxmaxCom{j,1}];
-            header_force(1,end+1) = {['Max_tension_force_',Settings.Analysis{Excel_setup{i,4+2*j}}]}; 
+            header_force(1,end+1) = {['Min_tension_force_',Settings.Analysis{Excel_setup{i,4+2*j}}]}; 
             header_force(1,end+1) = {['Max_compression_force_',Settings.Analysis{Excel_setup{i,4+2*j}}]}; 
             units_force(1,end+1) = {'[MN]'};
             units_force(1,end+1) = {'[MN]'};
