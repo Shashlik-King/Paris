@@ -1,2 +1,3 @@
 # Declare files that will always have CRLF line endings on checkout.
-*.gwt text eol=crlf
+Benchmark/GRLWeap_files/** text eol=crlf
+Benchmark_UB_4000/** text eol=crlf
