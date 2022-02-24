@@ -38,9 +38,9 @@ function [SRD] = Pile(Data,Settings,SRD,A,loc)
     
     PointSegment=[NumSement-12:1:NumSement]; 
     
-    if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force')
+    if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force') || strcmp(Settings.OutPutStyle{A.Analysis},'Displacement') || strcmp(Settings.OutPutStyle{A.Analysis},'Velocity') || strcmp(Settings.OutPutStyle{A.Analysis},'Stress')
     
-    for i =1:length (PointOutput)
+    for i =1:length(PointOutput)
         
         for j=2:length(SegmentsVector);
     

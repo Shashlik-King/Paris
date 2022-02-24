@@ -13,7 +13,7 @@ function Data = InitializeLoop(Settings,A,Data,locations,locLoop)
         'SCF'          'G2:J36'
         'Selected_Points' 'L2:N14'
         'SRD_prop'  'Q2:AG30'};
-    Files={'input\PDACalc.xlsx'};
+    Files={'Input\PDACalc.xlsx'};
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);   % PNGI
     
     
