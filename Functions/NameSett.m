@@ -1,7 +1,6 @@
 function [Settings] = NameSett(Sett,Settings)
 % Name Settings imported from Excel
 %   MTHG 26-11-2019
-
 Settings.LocationSwitch=cell2mat(Sett.LocationSwitch(:,1));
 
 % Proj
@@ -9,50 +8,42 @@ Settings.Analysis=Sett.Project(:,1);
 Settings.AnalysisSwitch=cell2mat(Sett.Project(:,2));
 Settings.SettingAnalysis=cell2mat(Sett.Project(:,3));
 Settings.SettingModel=cell2mat(Sett.Project(:,4));
-
-
-%Settings.SettingSoil=cell2mat(Sett.Project(:,5));
-%%% Always put it to 1 ; It is not used in the current code 
 Settings.SettingSoil=1;
-
 Settings.SettingDatabase=cell2mat(Sett.Project(:,5));
-% Settings.SettingAppendix=cell2mat(Sett.Project(:,6));
 Settings.SettingAppendix=0;
 Settings.AutomaticSW=cell2mat(Sett.Project(:,6));
-
 Settings.CalculateFatigue=cell2mat(Sett.Project(:,7));
 
 % Plot
-
 Settings.Plots=Sett.Plots;
 
-
+% Fatigue Database
+Settings.DBFatDam=Sett.DBFatDam;
+Settings.Database.FSwitch=Sett.Output{2,2};
 
 % Database
+Settings.Database.DBname = Sett.DatabaseSetting{1,2};
+Settings.Database.Username = Sett.DatabaseSetting{2,2};
+Settings.Database.Password = Sett.DatabaseSetting{3,2};
+Settings.Database.Server = Sett.DatabaseSetting{4,2};
+Settings.Database.Table = Sett.DatabaseSetting{5,2};
+Settings.Database.Rev.Geometry = Sett.DatabaseSetting{6,2};
+Settings.Database.Rev.Soil = Sett.DatabaseSetting{7,2};
+Settings.Database.Rev.Attachments = Sett.DatabaseSetting{8,2};
+Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{9,2};
+Settings.Database.LoadIterationName=Sett.DatabaseSetting{10,2};
 
-Settings.DBFatDam=Sett.DBFatDam;
-Settings.Database.FSwitch=Sett.DatabaseFSwitch{1,2};
-Settings.Database.LoadIterationName=Sett.DatabaseFSwitch{2,2};
+% Paths
+Settings.DIGWFolder= Sett.Paths {1,2};
+Settings.pythonPath=Sett.Paths {2,2};
 
-Settings.Database.DBname = Sett.Database{1,2};
-Settings.Database.Username = Sett.Database{2,2};
-Settings.Database.Password = Sett.Database{3,2};
-
-Settings.Database.Rev.Geometry = Sett.DatabaseSetting{1,2};
-Settings.Database.Rev.Soil = Sett.DatabaseSetting{2,2};
-Settings.Database.Rev.Attachments = Sett.DatabaseSetting{3,2};
-Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{4,2};
+% Output - Excel
+Settings.Excel_switch=Sett.Output{3,2};
+Settings.Excel_data = Sett.Excel;
 
 % Calc
-%Settings.AlmHamre=cell2mat(Sett.Analysis(:,2));
 Settings.AlmHamre=1;
 Settings.SimulLable=Sett.Analysis(:,2);
-
-% % % % PNGI These two are commented out in the new version  
-% % % % Settings.Stevens=cell2mat(Sett.Analysis(:,3));
-% % % % Settings.UB=cell2mat(Sett.Analysis(:,4));
-% % % % % % % % % % % % % % % % 
-
 Settings.BackCalc=cell2mat(Sett.Analysis(:,3));
 Settings.DFF=cell2mat(Sett.Analysis(:,4));
 Settings.DIGW=cell2mat(Sett.Analysis(:,5));
@@ -82,17 +73,12 @@ Settings.AssemWeight=cell2mat(Sett.Analysis(:,21));     %PNGI
 Settings.SoilType=Sett.Analysis(:,22);     %PNGI
 Settings.EntrapedWater=Sett.Analysis(:,23);     %PNGI
 Settings.NoiseMitRef=cell2mat(Sett.Analysis(:,24)); 
-
 Settings.ISNoiseMit=Settings.NoiseMitRef;   % Make a logical Variable 
 Settings.ISNoiseMit(Settings.ISNoiseMit>0)=1;
-
 Settings.StepsOfHammer=cell2mat(Sett.EfficiencySteps(:,2));
-
 Settings.HammerBreakDepth=cell2mat(Sett.Analysis(:,25));     %PNGI
 Settings.HammerBreakDepth(Settings.HammerBreakDepth==0)=-5; % When the hammerbreak down is off , the applied  depth is -5 to avoid confusion in the code. 
-
 Settings.Residual_stress_anlysis=cell2mat(Sett.Analysis(:,26)); 
-
 
 % GL
 Settings.COR=cell2mat(Sett.Model(:,2));
@@ -116,8 +102,7 @@ Settings.LimitDist=cell2mat(Sett.SoilSett(:,11));
 
 % Appendix generation
 
-Settings.Appendix.Swtich=Sett.AppendixSwitch{1,2};
-
+Settings.Appendix.Swtich=Sett.Output{1,2};
 Settings.Appendix.ProjectName = Sett.AppInfo{1,2};
 Settings.Appendix.ProjectNumber = Sett.AppInfo{2,2};
 Settings.Appendix.DocumentNoCOWI = Sett.AppInfo{3,2};
@@ -140,17 +125,3 @@ Settings.Appendix.HammerBreak = Sett.SwitchApp{1,10};
 Settings.Appendix.TimeSeries = Sett.SwitchApp{1,11};
 Settings.Appendix.LocationInfo = Sett.SwitchApp{1,12};
 Settings.Appendix.SoilStratiraphy = Sett.SwitchApp{1,13};
-
-
-
-
-
-
-
-
-
-
-
-
-
-

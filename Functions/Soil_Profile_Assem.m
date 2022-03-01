@@ -109,16 +109,16 @@ SRD_profile=Data.(loc{1}).SRD_prop(1:sum(loc{2} > cell2mat(Data.(loc{1}).SRD_pro
             SoilTable(i,11)=SoilProfile_1(ii,9);
             %%%%Assiging the type of the soil 
 
-           if contains(SRD_profile(ii,3),'sand')
+           if contains(SRD_profile(ii,3),'sand') || contains(SRD_profile(ii,3),'Sand') || contains(SRD_profile(ii,3),'SAND')
 
             SoilTable(i,3)=num2cell(1);      % Cohesionless equal to 1 
-           elseif  contains(SRD_profile(ii,3),'glauconite')
+           elseif  contains(SRD_profile(ii,3),'glauconite') || contains(SRD_profile(ii,3),'Glauconite') || contains(SRD_profile(ii,3),'GLAUCONITE')
             SoilTable(i,3)=num2cell(4);      %sand containing glauconte soil equal to 3
-           elseif   strcmp(SRD_profile(ii,3),'clay')  
+           elseif   strcmp(SRD_profile(ii,3),'clay') || contains(SRD_profile(ii,3),'Clay') || contains(SRD_profile(ii,3),'CLAY')
             SoilTable(i,3)=num2cell(2);      %Cohesive soil equal to 2
-           elseif   strcmp(SRD_profile(ii,3),'clay_L_PI')  
+           elseif   strcmp(SRD_profile(ii,3),'clay_L_PI') || contains(SRD_profile(ii,3),'Clay_L_PI') || contains(SRD_profile(ii,3),'CLAY_L_PI')
             SoilTable(i,3)=num2cell(2);      %Cohesive soil with low to meduim plasticity equal to 2 (Alm&Hamre 2018)          
-           elseif   strcmp(SRD_profile(ii,3),'clay_H_PI')  
+           elseif   strcmp(SRD_profile(ii,3),'clay_H_PI') || contains(SRD_profile(ii,3),'Clay_H_PI') || contains(SRD_profile(ii,3),'CLAY_H_PI')
             SoilTable(i,3)=num2cell(3);      %Cohesive soil with High plasticity equal to 3 (Alm&Hamre 2018)            
            end 
             %%%%%%%%%%

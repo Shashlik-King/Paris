@@ -4,7 +4,7 @@ function WritePythonExchangeFile(Data,SRD,Settings,A,loc,i)
 FileName=strcat(pwd,'\Python_Exchange\','GeneralInfo_Analysis');
 fileID = fopen([FileName,'.txt'],'w');
 for AA=1:size(Settings.Analysis,1)
-    if strcmp(Settings.OutPutStyle{AA},'Acceleration') || strcmp(Settings.OutPutStyle{AA},'Force')
+    if strcmp(Settings.OutPutStyle{AA},'Acceleration') || strcmp(Settings.OutPutStyle{AA},'Force') || strcmp(Settings.OutPutStyle{AA},'Displacement') || strcmp(Settings.OutPutStyle{AA},'Velocity') || strcmp(Settings.OutPutStyle{AA},'Stress')
         if Settings.AnalysisSwitch(AA)    
         fprintf(fileID,'%s %s\r\n',Settings.Analysis{AA}, Settings.SimulLable{AA});
         end
@@ -22,17 +22,15 @@ end
 fclose(fileID);
 
 
-if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force')
+if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force') || strcmp(Settings.OutPutStyle{A.Analysis},'Displacement') || strcmp(Settings.OutPutStyle{A.Analysis},'Velocity') || strcmp(Settings.OutPutStyle{A.Analysis},'Stress')
      
     SelfArray=SRD.(loc{i,1}).SelfPen;
     Pen_Depth=SRD.(loc{i,1}).Soil.z_D;
     StartBlow=length(find(SelfArray==1))+1;
     TotalStep=length(SelfArray);
-    %blowcount=SRD.(loc{i,1}).SOD(:,5);
-	
-
-	
-	driv=SRD.(loc{i,1}).SOD;
+    blowcount=SRD.(loc{i,1}).SOD(:,5);
+    
+    driv=SRD.(loc{i,1}).SOD;
 
 	LayerWidth=[ 0; diff(driv(:,1))/2]+[ diff(driv(:,1))/2;0]; %Calculate relevant height of each layer for determination of blows in each layer
 	blowcount=SRD.(loc{i,1}).SOD(:,5).*LayerWidth; %%Correction of the blow count with respect to the thickness of each layer
