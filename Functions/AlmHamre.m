@@ -13,12 +13,9 @@ if nargin ==4 || nargin==5
     
     R_eqauv=SRD.(loc{1}).Eqau_Redius_bot(end,1);
     Thichness=SRD.(loc{1}).tw(end,1);
-    Diameter=SRD.(loc{1}).out_daim(end,1);
-    
+    Diameter=SRD.(loc{1}).out_daim(end,1);  
     
     [SoilTable  Damping_Table SRDMultiplier HammerBreakCoeff Glauconite_Rf_Multiplier]=Soil_Profile_Assem(Data,Settings,A,loc,SRD);
-    
-      
     
     % Generate z
     n=size(SoilTable,1);  % Set number of soil springs
@@ -64,24 +61,20 @@ if nargin ==4 || nargin==5
         
         switch SRD_model
             case  'Alm_Hamre'
-        
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table ,Glauconite_Rf_Multiplier);
+                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table ,Glauconite_Rf_Multiplier);
     
             case 'Alm_Hamre_2018'
+                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table,Glauconite_Rf_Multiplier);
                 
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table,Glauconite_Rf_Multiplier);
-                
-            case  'ICP_18'  %%%Case Model is Stevense
-                
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_ICP_18(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table);
+            case  'ICP_18'  %%%Case Model is Stevense  
+                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_ICP_18(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table);
         
             case  'Jones'  %%%Case Model is Jones
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
+                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
 
-        %%Case Model is Alpaca
+            case  'NGI_glauconite'  %%%Case Model is NGI
+                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_NGI(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
 
-        
-        %% Case Model is Holly Man
         end 
         
         %%Applying the Hammer Break Down  , if the depth of penetration is
