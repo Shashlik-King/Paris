@@ -72,8 +72,8 @@ if nargin ==4 || nargin==5
             case  'Jones'  %%%Case Model is Jones
                 [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
 
-            case  'NGI_glauconite'  %%%Case Model is NGI
-                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_NGI(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
+            case  'Lehane'  %%%Case Model is NGI
+                [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Lehane(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
 
         end 
         
