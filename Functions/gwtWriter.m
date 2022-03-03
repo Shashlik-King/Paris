@@ -25,6 +25,18 @@ elseif strcmp(Settings.OutPutStyle{A.Analysis},'Force');
 outstyle=1;
 out='_Frc_';
 Switch=1;
+elseif strcmp(Settings.OutPutStyle{A.Analysis},'Velocity');
+outstyle=2;
+out='_Vel_';
+Switch=1;
+elseif strcmp(Settings.OutPutStyle{A.Analysis},'Stress');
+outstyle=3;
+out='_Str_';
+Switch=1;
+elseif strcmp(Settings.OutPutStyle{A.Analysis},'Displacement');
+outstyle=5;
+out='_Dis_';
+Switch=1;
 else
 warning('The output is Normal without time series');
 outstyle=0;
@@ -41,6 +53,7 @@ end
     SRD.(loc{locLoop,1}).Indexfilelist(1) = 1;
 
         for j=1:NoSteps
+            
             if Settings.Residual_stress_anlysis(A.Analysis)&&  SRD.(loc{locLoop,1}).Soil.z_D(j)>= SRD.(loc{locLoop,1}).Soil.z_D(end)-Settings.HammerBreakDepth(A.Analysis)
                 ResStressSwitch=1;     % if the residual analysis is on, it reads from the pre assined value
             else
@@ -88,7 +101,7 @@ end
 %                 SRD_backup.(loc{i,1}).Soil.z
                 fprintf(fileID,'%8.2f%10.3f%10.2f %7.3f %7.3f %7.3f %7.3f %7.3f %7.2f %7.4f %4.2f\r\n',[SRD.(loc{i,1}).Soil.z(III) SRD.(loc{i,1}).Soil.fs(j,III)'.*factor_soil_method(III,1) SRD.(loc{i,1}).Soil.qt_gwt(III)'.*factor_soil_method(III,1) SRD.(loc{i,1}).Soil.QuakeDamp(III,1) SRD.(loc{i,1}).Soil.QuakeDamp(III,2) SRD.(loc{i,1}).Soil.QuakeDamp(III,3) SRD.(loc{i,1}).Soil.QuakeDamp(III,4) SRD.(loc{i,1}).Soil.Setup*ones(size(III,2),1) SRD.(loc{i,1}).Soil.LimDist(1)*ones(size(III,2),1) zeros(size(III,2),1) SRD.(loc{i,1}).gwtPile(size(SRD.(loc{i,1}).gwtPile,1),2)*ones(size(III,2),1)]');
             end
-			fprintf(fileID,'%8.2f%10.3f%10.2f %7.3f %7.3f %7.3f %7.3f %7.3f %7.2f %7.4f %4.2f\r\n',[max(SRD.(loc{locLoop,1}).gwtPile(:,1)) SRD.(loc{locLoop,1}).Soil.fs(j,Index(j))*factor_soil_method(Index(j)) SRD.(loc{locLoop,1}).Soil.qt_gwt(Index(j))*factor_soil_method(Index(j)) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),1) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),2) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),3) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),4) SRD.(loc{locLoop,1}).Soil.Setup SRD.(loc{locLoop,1}).Soil.LimDist(1) 0 SRD.(loc{locLoop,1}).gwtPile(size(SRD.(loc{locLoop,1}).gwtPile,1),2)]');
+            fprintf(fileID,'%8.2f%10.3f%10.2f %7.3f %7.3f %7.3f %7.3f %7.3f %7.2f %7.4f %4.2f\r\n',[max(SRD.(loc{locLoop,1}).gwtPile(:,1)) SRD.(loc{locLoop,1}).Soil.fs(j,Index(j))*factor_soil_method(Index(j)) SRD.(loc{locLoop,1}).Soil.qt_gwt(Index(j))*factor_soil_method(Index(j)) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),1) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),2) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),3) SRD.(loc{locLoop,1}).Soil.QuakeDamp(Index(j),4) SRD.(loc{locLoop,1}).Soil.Setup SRD.(loc{locLoop,1}).Soil.LimDist(1) 0 SRD.(loc{locLoop,1}).gwtPile(size(SRD.(loc{locLoop,1}).gwtPile,1),2)]');
             fprintf(fileID,'%8.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f\r\n',[Settings.SkinGainLoss(A.Model) 0 0 0 0 0 0 0 0 0]');
             fprintf(fileID,'%8.3f %7.3f %7.3f %7.3f %7.3f %7.1f %7.3f %7.3f %7.3f %7.3f\r\n',[Settings.ToeGainLoss(A.Model) 0 0 0 0 SRD.(loc{locLoop,1}).gwtPile(size(SRD.(loc{locLoop,1}).gwtPile,1),2) 0 0 0 0]');
             fprintf(fileID,'%10.2f %9.2f %9.2f %9.3f %9.2f %9.4f %9.4f %9.4f\r\n',Data.(loc{locLoop,1}).Dmatrix(Data.(loc{locLoop,1}).Dindex(j,1):Data.(loc{locLoop,1}).Dindex(j,2),:)');

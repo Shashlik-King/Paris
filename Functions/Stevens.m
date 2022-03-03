@@ -3,8 +3,6 @@ function [SoilOut,Embed] = Stevens(Cshaftsand, Cshastclay, Ctoesand, Ctoeclay, F
 
 %%% Skin friction and end bearing calculations according to:
 %%% DNVGL-ST-0126 and Stevens(1982)
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Limit factors for Stevens/Static approach
 delta=[15 20 25 30 35 50];
@@ -55,7 +53,7 @@ for i = 1:length(z)
         else
             alph(i)=1/(2*(cu(i)/sigv(i))^(1/2));
         end
-        f(i)=0.5*alph(i)*cu(i)*(cu(i)/(0.11+0.0037^PI(i)))^(0.30/0.85);  %MTHG to correct;
+        f(i)=0.5*alph(i)*cu(i)*(cu(i)/(sigv(i)*(0.11+0.0037^PI(i))))^(0.30/0.85);  %MTHG to correct;
         q(i)=Nc*cu(i);
         Cshaft(i)=Cshastclay;
         Ctoe(i)=Ctoeclay;
@@ -73,8 +71,6 @@ for i = 1:length(z)
 end
 
 results= [z' f' q' f1' f2' Cshaft' Ctoe' SetupFactor' f4' f5' f6'];
-
 SoilOut=results;
 Embed=Embedment;
-
 end
