@@ -17,23 +17,40 @@ if T(i)==1   %SAND
     end
 
     if z_D(j)>=z(i)
+%         fs=0.5*sigma_r_i*tan((phi(i))*pi/180);   %Friction is applied only outside
         fs=(CPT(i,1)/a) * (f_t/f_c) * (max(1 , h/D))^b * ((1 - D_i/D)^2)^c;
     else 
         fs=NaN;   
     end
     fsi = (CPT(i,1)/a) * (f_t/f_c) * 1^b * ((1 - D_i/D)^2)^c * tan((phi(i))*pi/180);
-    fsres = (CPT(i,1)/a) * (f_t/f_c) * (z_D(end)/D)^b * ((1 - D_i/D)^2)^c * tan((phi(i))*pi/180); 
+    fsres = (CPT(i,1)/a) * (f_t/f_c) * (1 , h/D)^b * ((1 - D_i/D)^2)^c * tan((phi(i))*pi/180);; 
+%     fs=(CPT(i,1)/a) * (f_t/f_c) * (max(1 , h/D))^b * ((1 - D_i/D)^2)^c;                   % Friction only outside
     qt=0.3*CPT(i,1);
 elseif (T(i)==2 || T(i)==3 )  %CLAY
     b = 0;
     c = 0;
     fs=(CPT(i,1)/a) * (f_t/f_c) * (max(1 , h/D))^b * ((1 - D_i/D)^2)^c;   
-    fsi = (CPT(i,1)/a) * (f_t/f_c) * 1^b * ((1 - D_i/D)^2)^c * tan((phi(i))*pi/180);
-    fsres = (CPT(i,1)/a) * (f_t/f_c) * (z_D(end)/D)^b * ((1 - D_i/D)^2)^c * tan((phi(i))*pi/180); 
     qt=0.6*CPT(i,1);
 end
-   
-k = -5555; % shape factor not used hence Lehane does not use it. Set to random number to show this. 
+
+fsi = 0.5*(CPT(i,1)/a) * (6^(-0.481*((D_tw_ratio)^0.145)))*tan((phi(i))*pi/180); 
+fsres = 0.5*(CPT(i,1)/a) * ((z_D(end)/R_eqauv)^(-0.481*((D_tw_ratio)^0.145)))*tan((phi(i))*pi/180); 
+% ICP -18
+% sigma_r_i=0.031*CPT(i,1)*(h_R_ratio^(-0.481*((D_tw_ratio)^0.145)));           
+% if z_D(j)>=z(i)
+% fs=0.5*sigma_r_i*tan((phi(i))*pi/180);   %Friction is applied only outside 
+% else 
+% fs=NaN;   
+% end
+% fsi=0.5*0.031*CPT(i,1)*(6^(-0.481*((D_tw_ratio)^0.145)))*tan((phi(i))*pi/180);                   % Friction only outside
+% fsres=0.5*0.031*CPT(i,1)*((z_D(end)/R_eqauv)^(-0.481*((D_tw_ratio)^0.145)))*tan((phi(i))*pi/180); 
+% qt=0.6*CPT(i,1);
+% k=(CPT(i,1)/sigv(i))^(0.5)/80;
+            
+            
+% k=1;
+% fsres=1;
+% fsi=1;
 
 SkinQuake=cell2mat(Damping_Table(i,4));
 ToeQuake=cell2mat(Damping_Table(i,3));
