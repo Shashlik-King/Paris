@@ -7,6 +7,7 @@ CodriveVersion           = 'DevelopmentVersion';
 addpath('Functions')        % Adding folder with functions to path
 
 [Settings]=Initialize();    % Import defined settings from excel file
+Data_validation(Settings)
 pythonPath = Settings.pythonPath;
 Settings.PlotTitle = 0;     % Switch for adding title or not for plots
 
