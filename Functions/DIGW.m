@@ -17,7 +17,7 @@ end
     
     h=waitbar(0,'DIGW...');
     for i=StartIdx:size(filelist,1)    %%% Starting from the depth end of self penetration instead of 1
-        Command=strcat({'cd '},Settings.DIGWFolder(1),{' & DIGW.exe '},filelist(i),{'.gwt'});
+        Command=strcat({'cd '},Settings.DIGWFolder,{' & DIGW.exe '},filelist(i),{'.gwt'});
         AO=system(Command{1});
         waitbar((i-StartIdx+1)/(length(filelist)-StartIdx),h,['DIGW - File ' num2str(i) '/' num2str(length(filelist))]);
     end

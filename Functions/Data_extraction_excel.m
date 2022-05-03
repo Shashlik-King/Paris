@@ -33,6 +33,8 @@ for i = 1:size(Settings.Excel_data,1)
     counter_2 = counter_2 + 1;
 end
 
+
+
 %% Save into excels
 for i = 1:size(Excel_setup,1)
     XL = Excel_setup(i,:);
@@ -40,9 +42,10 @@ for i = 1:size(Excel_setup,1)
     comp_num = (size(Excel_setup,2) - sum([XL_logic{:}]) - 4) / 2;
 %     Add check to see if input is not wrong
 
+Switch = cell2mat(Excel_setup(i,1));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Blow_count
-    if strcmp(Excel_setup(i,3) , 'Blowcounts')
+    if strcmp(Excel_setup(i,3) , 'Blowcounts') && Switch == 1
         for j = 1:comp_num
             DATA = struct2cell(OUTPUT.([Excel_setup{i,3+2*j},'_',Settings.Analysis{Excel_setup{i,4+2*j}}]));
             Dmatrix{j,1} = DATA{1,1}.DATA.Dmatrix;
@@ -72,7 +75,7 @@ for i = 1:size(Excel_setup,1)
         xlswrite(File_name, units_blow,  Excel_setup{i,4}, 'B2');
         xlswrite(File_name, DATA_FINAL_blow,  Excel_setup{i,4}, 'B3');
         
-    elseif strcmp(Excel_setup(i,3) , 'SRD')
+    elseif strcmp(Excel_setup(i,3) , 'SRD') && Switch == 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
         % SRD
         for j = 1:comp_num
@@ -97,7 +100,7 @@ for i = 1:size(Excel_setup,1)
         xlswrite(File_name, units_SRD,  Excel_setup{i,4}, 'B2');
         xlswrite(File_name, DATA_FINAL_SRD,  Excel_setup{i,4}, 'B3');
 
-    elseif strcmp(Excel_setup(i,3) , 'Forces')
+    elseif strcmp(Excel_setup(i,3) , 'Forces') && Switch == 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Forces
         for j = 1:comp_num

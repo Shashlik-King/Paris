@@ -109,6 +109,7 @@ for locLoop = 1:size(locfirst,1)
             database_write_Fatigue(GE_Data,GE_SRD,Settings,A,DatabaseRev,locations,locLoop)
         end
     end
+    close all
 end
 
 if any(strcmp(Settings.OutPutStyle,'Acceleration')) && Settings.Appendix.Swtich

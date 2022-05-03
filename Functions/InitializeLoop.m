@@ -24,9 +24,13 @@ function Data = InitializeLoop(Settings,A,Data,locations,locLoop)
     % % % % %     excellnames=Settings.Excel(any(cellfun(@(x)any(~isnan(x)),Settings.Excel(:,1)),2),:);
     % % % % %     if  A.CALC==1 || ~isequal(excellnames{:})
     
-    Range={'CPTData' 'K5:M30000'          % CPT original data
-        'SoilData'  'Q5:S44'        % CPT interpratated data
-        'SoilProfile' 'A5:I45'};      % Soil Profile
+%     Range={'CPTData' 'K5:M30000'          % CPT original data
+%         'SoilData'  'Q5:S44'        % CPT interpratated data
+%         'SoilProfile' 'A5:I45'};      % Soil Profile
+    
+    Range={'CPTData' 'N5:P30000'          % CPT original data
+        'SoilData'  'T5:V44'        % CPT interpratated data
+        'SoilProfile' 'A5:L45'};      % Soil Profile
     %Files={Settings.Excel{A.Analysis,1},'Soil2GRLWEAP.xlsm'};
     Files={Settings.Excel{A.Analysis,1}};
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);

@@ -12,27 +12,33 @@ if nargin ==4 || nargin==5
     MPa=1000;         % Convert MPa to kPa
     
     R_eqauv=SRD.(loc{1}).Eqau_Redius_bot(end,1);
-    Thichness=SRD.(loc{1}).tw(end,1);
-    Diameter=SRD.(loc{1}).out_daim(end,1);
-    
+    Thichness=SRD.(loc{1}).tw(end,1);       %Thickness at pile tip
+    Diameter=SRD.(loc{1}).out_daim(end,1);  %Diameter at pile tip
     
     [SoilTable  Damping_Table SRDMultiplier HammerBreakCoeff Glauconite_Rf_Multiplier]=Soil_Profile_Assem(Data,Settings,A,loc,SRD);
     
-      
+    % Import data from PDAcalc
+    Setup=cell2mat(Damping_Table(:,5));     % Setup factor
+    LimDist=cell2mat(Damping_Table(:,6));  % Limit distance
+    Nc=cell2mat(Damping_Table(:,8));       % Dimensionless bearing capcaity factor, Nc 
     
     % Generate z
     n=size(SoilTable,1);  % Set number of soil springs
     z=cell2mat(SoilTable(:,1));
     
-    % Interpolate soil onto z
-    gamma = cell2mat(SoilTable(:,4));  %Unitweight
-    T = cell2mat(SoilTable(:,3));      %Soilmodel
-    Model=SoilTable(:,8);              %SRD Model
-    YSR=SoilTable(:,10);              %SRD Model
-    St=SoilTable(:,11);              %SRD Model
     
-    Delta_phi = cell2mat(SoilTable(:,7));    % Delta phi
-    phi = cell2mat(SoilTable(:,9));    %phi
+    % Interpolate soil onto z
+    gamma = cell2mat(SoilTable(:,4));          %Unitweight
+    T = cell2mat(SoilTable(:,3));              %Soilmodel
+    Model=SoilTable(:,8);                      %SRD Model
+    YSR=SoilTable(:,10);                       %SRD Model
+    St=SoilTable(:,11);                        %SRD Model
+    
+    su = cell2mat(SoilTable(:,12));            %SRD Model    
+    OCR = cell2mat(SoilTable(:,13));           %SRD Model
+    UCS = cell2mat(SoilTable(:,14));           %SRD Model
+    Delta_phi = cell2mat(SoilTable(:,7));      %Delta phi
+    phi = cell2mat(SoilTable(:,9));            %phi
     
     % CPT values onto z and convert to kPa
     CPT(:,1) = cell2mat(SoilTable(:,5))*MPa;     %qc in kPa
@@ -71,13 +77,18 @@ if nargin ==4 || nargin==5
                 
         [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table,Glauconite_Rf_Multiplier);
                 
-            case  'ICP_18'  %%%Case Model is Stevense
+            case  'ICP_18' 
                 
         [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_ICP_18(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table);
         
-            case  'Jones'  %%%Case Model is Jones
+            case  'Jones'  
         [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
 
+            case  'Stevens'
+        [qt(i), fs(i), SkinQuake(i), ToeQuake(i), SkinDamping(i), ToeDamping(i)]=Model_Stevens(i,T,sigv,phi,Delta_phi,OCR,su,Damping_Table,loc,Nc,UCS);    
+          
+            case  'Puech_rock'
+        [qt(i), fs(i), SkinQuake(i), ToeQuake(i), SkinDamping(i), ToeDamping(i)]=Model_Puech(i,T,sigv,phi,Delta_phi,OCR,su,Damping_Table,Diameter,Thichness,loc,Nc,SoilTable,UCS);
         %%Case Model is Alpaca
 
         
@@ -98,17 +109,19 @@ if nargin ==4 || nargin==5
     
     % Save results in SRD structure for current location for later use 
     SRD.(loc{1}).Soil.z=z;
-    SRD.(loc{1}).Soil.z_D=z_D;
+    SRD.(loc{1}).Soil.z_D=z_D; % IF exist fres fo AlmHamre
     SRD.(loc{1}).Soil.CPT=CPT;
-    SRD.(loc{1}).Soil.fsres=fsres;
-    SRD.(loc{1}).Soil.fsi=fsi;
+    if exist('fres','var')
+        SRD.(loc{1}).Soil.fsres=fsres; % IF exist fres fo AlmHamre
+        SRD.(loc{1}).Soil.fsi=fsi; % IF exist fres fo AlmHamre
+        SRD.(loc{1}).Soil.k=k;
+    end
     SRD.(loc{1}).Soil.fs=fs;
-    SRD.(loc{1}).Soil.k=k;
     SRD.(loc{1}).Soil.qt=qt;
     SRD.(loc{1}).Soil.qt_gwt = qt*SRD.(loc{1}).gwtPile(end,2)/(100^2); % Multiplied with bottom pile area for getting correct input for .gwt files
     SRD.(loc{1}).Soil.QuakeDamp=[SkinQuake' ToeQuake' SkinDamping' ToeDamping'];
-    SRD.(loc{1}).Soil.LimDist=0;
-    SRD.(loc{1}).Soil.Setup=1;
+    SRD.(loc{1}).Soil.LimDist=LimDist; 
+    SRD.(loc{1}).Soil.Setup=Setup; 
     SRD.(loc{1}).Soil.SoilTable=SoilTable;
     SRD.(loc{1}).Soil.SRDMultiplier=SRDMultiplier;
     
