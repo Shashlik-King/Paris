@@ -4,7 +4,9 @@ clear all; close all;
 %%Version number is automatically updated by release pipeline
 CodriveVersion           = 'DevelopmentVersion';
 %% Initialize calculation
-addpath('Functions')        % Adding folder with functions to path
+if (~isdeployed)
+     addpath('Functions')        % Adding folder with functions to path
+end
 
 [Settings]=Initialize();    % Import defined settings from excel file
 Data_validation(Settings)
@@ -28,12 +30,11 @@ for locLoop = 1:size(locfirst,1)
                 % Clear variables from workspace from previous run
                 clearvars -except  pythonPath GE_Data GE_SRD  GE_filelist A Settings locfirst PlotOpt CALC  locLoop  DatabaseRev % Remove in order to ensure no values mistakenly used from previous run - these values are stored at the end of the loop
 
-
                 % Generate index for settings
                 A = IndexA(Settings,CALC);
                 disp(['Running the Analysis:',A.SimulationLable])
 
-                %%%% Update the embeded length based on the Analysis number
+                % Update the embeded length based on the Analysis number
                 loc=Settings.Locations(any(cellfun(@(x)any(~isnan(x)),Settings.Locations(:,A.CALC+1)),2),:);
                 locations = [(loc(:,1)),loc(:,A.CALC+1) loc(:,end)];
 
@@ -41,24 +42,22 @@ for locLoop = 1:size(locfirst,1)
                 GE_Data.(A.SimulationLable).dummy=1;
                 GE_Data.(A.SimulationLable) = InitializeLoop(Settings,A,GE_Data.(A.SimulationLable),locations,locLoop);
                 GE_Data.(A.SimulationLable) = rmfield(GE_Data.(A.SimulationLable),'dummy'); % Remove the Dummy object
+%                 Data_validation_locations(Settings,GE_Data)
 
                 % Generate sub-folders
                 mkdir (A.Folder);
                 mkdir (A.Folder, 'Plots');
 
-                %%%%%%%%%%%%%%%%%%%%%%  Generate SRD  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                % Generate SRD
                 GE_SRD.(A.SimulationLable).dummy=1;
                 GE_SRD.(A.SimulationLable)=SRDfun(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),Settings,A,locations,locLoop);
                 GE_SRD.(A.SimulationLable) = rmfield(GE_SRD.(A.SimulationLable),'dummy'); % Remove the Dummy object
 
-                %%%%%%%%%%%%%%%%%%%%%%  Calculate Self Penetration  %%%%%%%%%%%%%%%
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                % Calculate Self Penetration
                 [GE_SRD.(A.SimulationLable)]=SelfPenAssesment(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),Settings,A,locations,locLoop);
                 % Generate .gwt files
 
-                %%%%%%%%%%%%%%%%%%%%%%  Running GRLWEAP %%%%%%%%%%%%%%%%%%%%%%%%%%%
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                % Running GRLWEAP
                 GE_filelist.(A.SimulationLable).dummy=1;   % Create a Dummy object just for first anlysis
                 if Settings.ISNoiseMit(A.Analysis)  % Nose mittigation run mode
                     [GE_SRD.(A.SimulationLable) ,GE_filelist.(A.SimulationLable),GE_Data.(A.SimulationLable)]=RunInNoiseMode(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),GE_filelist.(A.SimulationLable),Settings,A,loc,locLoop);
@@ -74,21 +73,19 @@ for locLoop = 1:size(locfirst,1)
                 end
                 GE_filelist.(A.SimulationLable)=rmfield(GE_filelist.(A.SimulationLable),'dummy'); % Remove the Dummy object
 
-                %%%%%%%%%%%%%%%%%%%%%%%% Reading output%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+                % Reading output
                 GE_SRD.(A.SimulationLable)=FatDam(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),Settings,A,GE_filelist.(A.SimulationLable),locations,locLoop);
 
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+                % Plotting
                 disp([A.SimulationLable, '  Has been finished succsesfully'])
                 disp('--------------------------------------------------')
-                %%%%%%%%%%%% Writting the Python Exchange files%%%%%%%%%%%%%%%%%%%
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                
+                % Writting the Python Exchange files
                 if strcmp(Settings.OutPutStyle{A.Analysis},'Acceleration') || strcmp(Settings.OutPutStyle{A.Analysis},'Force') || strcmp(Settings.OutPutStyle{A.Analysis},'Displacement') || strcmp(Settings.OutPutStyle{A.Analysis},'Velocity') || strcmp(Settings.OutPutStyle{A.Analysis},'Stress')
                     WritePythonExchangeFile(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),Settings,A,loc,locLoop);
                 end
+                
+                % Reassign data and save workspace
                 eval([locations{locLoop,1},'_',(A.SimulationLable),'.SRD=GE_SRD.',(A.SimulationLable),'.',locations{locLoop,1},';']);
                 eval([locations{locLoop,1},'_',(A.SimulationLable),'.DATA=GE_Data.',(A.SimulationLable),'.',locations{locLoop,1},';']);
                 eval([locations{locLoop,1},'_',(A.SimulationLable),'.Settings=Settings;']);
@@ -98,7 +95,7 @@ for locLoop = 1:size(locfirst,1)
 
         GeneralGWOplot(GE_Data,GE_SRD,Settings,A,PlotOpt,locations,locLoop)
 
-        %%%%Store the Data in a Variable
+        % Store the Data in a Variable
         StoredData.Data = GE_Data;
         StoredData.Settings = Settings;
         StoredData.filelist = GE_filelist;
@@ -106,6 +103,7 @@ for locLoop = 1:size(locfirst,1)
         StoredData.SRD = GE_SRD;
         save([pwd,'\Plots\DocumentationData',locations{locLoop,1},'.mat'],'StoredData')
 
+        % Fatigue damage write to DB
         if Settings.Database.FSwitch
             database_write_Fatigue(GE_Data,GE_SRD,Settings,A,DatabaseRev,locations,locLoop)
         end
@@ -124,7 +122,6 @@ end
 if Settings.Excel_switch
     Data_extraction_excel(Settings);
 end
-%%% Code to combine plots put in here
 
 % Shut down pc after completing run (can be used when looping over many locations over night)
 % system('shutdown -s')   % Shutdown pc
