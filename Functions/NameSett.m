@@ -4,42 +4,42 @@ function [Settings] = NameSett(Sett,Settings)
 Settings.LocationSwitch=cell2mat(Sett.LocationSwitch(:,1));
 
 % Proj
-Settings.Analysis=Sett.Project(:,1);
-Settings.AnalysisSwitch=cell2mat(Sett.Project(:,2));
-Settings.SettingAnalysis=cell2mat(Sett.Project(:,3));
-Settings.SettingModel=cell2mat(Sett.Project(:,4));
-Settings.SettingSoil=1;
-Settings.SettingDatabase=cell2mat(Sett.Project(:,5));
-Settings.SettingAppendix=0;
-Settings.AutomaticSW=cell2mat(Sett.Project(:,6));
-Settings.CalculateFatigue=cell2mat(Sett.Project(:,7));
+Settings.Analysis           = Sett.Project(:,1);
+Settings.AnalysisSwitch     = cell2mat(Sett.Project(:,2));
+Settings.SettingAnalysis    = cell2mat(Sett.Project(:,3));
+Settings.SettingModel       = cell2mat(Sett.Project(:,4));
+Settings.SettingSoil        = 1;
+Settings.SettingDatabase    = cell2mat(Sett.Project(:,5));
+Settings.SettingAppendix    = 0;
+Settings.AutomaticSW        = cell2mat(Sett.Project(:,6));
+Settings.CalculateFatigue   = cell2mat(Sett.Project(:,7));
 
 % Plot
-Settings.Plots=Sett.Plots;
+Settings.Plots              = Sett.Plots;
 
 % Fatigue Database
-Settings.DBFatDam=Sett.DBFatDam;
-Settings.Database.FSwitch=Sett.Output{2,2};
+Settings.DBFatDam           = Sett.DBFatDam;
+Settings.Database.FSwitch   = Sett.Output{2,2};
 
 % Database
-Settings.Database.DBname = Sett.DatabaseSetting{1,2};
-Settings.Database.Username = Sett.DatabaseSetting{2,2};
-Settings.Database.Password = Sett.DatabaseSetting{3,2};
-Settings.Database.Server = Sett.DatabaseSetting{4,2};
-Settings.Database.Table = Sett.DatabaseSetting{5,2};
-Settings.Database.Rev.Geometry = Sett.DatabaseSetting{6,2};
-Settings.Database.Rev.Soil = Sett.DatabaseSetting{7,2};
-Settings.Database.Rev.Attachments = Sett.DatabaseSetting{8,2};
-Settings.Database.Rev.SubRevSFC = Sett.DatabaseSetting{9,2};
-Settings.Database.LoadIterationName=Sett.DatabaseSetting{10,2};
+Settings.Database.DBname    = Sett.DatabaseSetting{1,2};
+Settings.Database.Username  = Sett.DatabaseSetting{2,2};
+Settings.Database.Password  = Sett.DatabaseSetting{3,2};
+Settings.Database.Server    = Sett.DatabaseSetting{4,2};
+Settings.Database.Table     = Sett.DatabaseSetting{5,2};
+Settings.Database.Rev.Geometry      = Sett.DatabaseSetting{6,2};
+Settings.Database.Rev.Soil          = Sett.DatabaseSetting{7,2};
+Settings.Database.Rev.Attachments   = Sett.DatabaseSetting{8,2};
+Settings.Database.Rev.SubRevSFC     = Sett.DatabaseSetting{9,2};
+Settings.Database.LoadIterationName = Sett.DatabaseSetting{10,2};
 
 % Paths
-Settings.DIGWFolder= Sett.Paths {1,2};
-Settings.pythonPath=Sett.Paths {2,2};
+Settings.DIGWFolder         = Sett.Paths {1,2};
+Settings.pythonPath         = Sett.Paths {2,2};
 
 % Output - Excel
-Settings.Excel_switch=Sett.Output{3,2};
-Settings.Excel_data = Sett.Excel;
+Settings.Excel_switch       = Sett.Output{3,2};
+Settings.Excel_data         = Sett.Excel;
 
 % Calc
 Settings.AlmHamre=1;
@@ -62,46 +62,47 @@ for i = 1:length(index)
         Settings.AnalysisSteps(i,1)=cell2mat(Sett.Analysis(i,13));
     end
 end
-Settings.RefusalCrit=cell2mat(Sett.Analysis(:,14));
-Settings.CPTData=cell2mat(Sett.Analysis(:,15));
-Settings.Excel=Sett.Analysis(:,16);
-Settings.Plotting=cell2mat(Sett.Analysis(:,17));
-Settings.OutPutStyle=Sett.Analysis(:,18);     %PNGI
-Settings.TimeIncreament=cell2mat(Sett.Analysis(:,19));    %PNGI
-Settings.DurationAnalysis=cell2mat(Sett.Analysis(:,20));       %PNGI
-Settings.AssemWeight=cell2mat(Sett.Analysis(:,21));     %PNGI
-Settings.SoilType=Sett.Analysis(:,22);     %PNGI
-Settings.EntrapedWater=Sett.Analysis(:,23);     %PNGI
-Settings.NoiseMitRef=cell2mat(Sett.Analysis(:,24)); 
-Settings.ISNoiseMit=Settings.NoiseMitRef;   % Make a logical Variable 
-Settings.ISNoiseMit(Settings.ISNoiseMit>0)=1;
-Settings.StepsOfHammer=cell2mat(Sett.EfficiencySteps(:,2));
-Settings.HammerBreakDepth=cell2mat(Sett.Analysis(:,25));     %PNGI
-Settings.HammerBreakDepth(Settings.HammerBreakDepth==0)=-5; % When the hammerbreak down is off , the applied  depth is -5 to avoid confusion in the code. 
-Settings.Residual_stress_anlysis=cell2mat(Sett.Analysis(:,26)); 
+Settings.RefusalCrit = cell2mat(Sett.Analysis(:,14));
+Settings.CPTData = cell2mat(Sett.Analysis(:,15));
+Settings.Excel = Sett.Analysis(:,16);
+Settings.Plotting = cell2mat(Sett.Analysis(:,17));
+Settings.OutPutStyle = Sett.Analysis(:,18);     %PNGI
+Settings.TimeIncreament = cell2mat(Sett.Analysis(:,19));    %PNGI
+Settings.DurationAnalysis = cell2mat(Sett.Analysis(:,20));       %PNGI
+Settings.AssemWeight = cell2mat(Sett.Analysis(:,21));     %PNGI
+Settings.SoilType = Sett.Analysis(:,22);     %PNGI
+Settings.EntrapedWater = Sett.Analysis(:,23);     %PNGI
+Settings.NoiseMitRef = cell2mat(Sett.Analysis(:,24)); 
+Settings.ISNoiseMit = Settings.NoiseMitRef;   % Make a logical Variable 
+Settings.ISNoiseMit(Settings.ISNoiseMit>0) = 1;
+Settings.HybridSteps = cell2mat(Sett.HybridSteps(:,1:2));
+Settings.StepsOfHammer = cell2mat(Sett.EfficiencySteps(:,2));
+Settings.HammerBreakDepth = cell2mat(Sett.Analysis(:,25));     %PNGI
+Settings.HammerBreakDepth(Settings.HammerBreakDepth==0) = -5; % When the hammerbreak down is off , the applied  depth is -5 to avoid confusion in the code. 
+Settings.Residual_stress_anlysis = cell2mat(Sett.Analysis(:,26)); 
+Settings.Hybrid_driving_analysis = cell2mat(Sett.Analysis(:,27)); 
 
 % GL
-Settings.COR=cell2mat(Sett.Model(:,2));
-Settings.G=cell2mat(Sett.Model(:,3));
-Settings.SkinGainLoss=cell2mat(Sett.Model(:,4));
-Settings.ToeGainLoss=cell2mat(Sett.Model(:,5));
-Settings.ESteel=cell2mat(Sett.Model(:,6));
-Settings.GSteel=cell2mat(Sett.Model(:,7));
+Settings.COR = cell2mat(Sett.Model(:,2));
+Settings.G = cell2mat(Sett.Model(:,3));
+Settings.SkinGainLoss = cell2mat(Sett.Model(:,4));
+Settings.ToeGainLoss = cell2mat(Sett.Model(:,5));
+Settings.ESteel = cell2mat(Sett.Model(:,6));
+Settings.GSteel = cell2mat(Sett.Model(:,7));
 
 % Soil
-Settings.K=cell2mat(Sett.SoilSett(:,2));
-Settings.Nc=cell2mat(Sett.SoilSett(:,3));
-Settings.ToeDampSand=cell2mat(Sett.SoilSett(:,4));
-Settings.ToeDampClay=cell2mat(Sett.SoilSett(:,5));
-Settings.SkinDampSand=cell2mat(Sett.SoilSett(:,6));
-Settings.SkinDampClay=cell2mat(Sett.SoilSett(:,7));
-Settings.ToeQuake=cell2mat(Sett.SoilSett(:,8));
-Settings.SkinQuake=cell2mat(Sett.SoilSett(:,9));
-Settings.Setup=cell2mat(Sett.SoilSett(:,10));
-Settings.LimitDist=cell2mat(Sett.SoilSett(:,11));
+Settings.K = cell2mat(Sett.SoilSett(:,2));
+Settings.Nc = cell2mat(Sett.SoilSett(:,3));
+Settings.ToeDampSand = cell2mat(Sett.SoilSett(:,4));
+Settings.ToeDampClay = cell2mat(Sett.SoilSett(:,5));
+Settings.SkinDampSand = cell2mat(Sett.SoilSett(:,6));
+Settings.SkinDampClay = cell2mat(Sett.SoilSett(:,7));
+Settings.ToeQuake = cell2mat(Sett.SoilSett(:,8));
+Settings.SkinQuake = cell2mat(Sett.SoilSett(:,9));
+Settings.Setup = cell2mat(Sett.SoilSett(:,10));
+Settings.LimitDist = cell2mat(Sett.SoilSett(:,11));
 
 % Appendix generation
-
 Settings.Appendix.Swtich=Sett.Output{1,2};
 Settings.Appendix.ProjectName = Sett.AppInfo{1,2};
 Settings.Appendix.ProjectNumber = Sett.AppInfo{2,2};
