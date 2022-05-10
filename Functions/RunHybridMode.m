@@ -1,6 +1,6 @@
 function [SRD ,filelist,Data]=RunHybridMode(Data,SRD,filelist,Settings,A,loc,locLoop)
 
-if nargin ==6 || nargin==7
+if nargin == 6 || nargin == 7
     disp(['Run the Hybrid driving analysis for location ' , loc{locLoop,1} ])
     
     EffDepth        = Settings.HybridSteps(:,1);   % Sequance of incearing the hammer efficiency
@@ -41,39 +41,50 @@ if nargin ==6 || nargin==7
     end       
     
     NoSteps = Data.(loc{locLoop}).NoSteps;    % Load stored number of step
-%     SRD.(loc{locLoop,1}).Indexfilelist(1) = 1; % ?????? FKMV
     EffStep = 1;  % Starting with the first efficiency level
     h       = waitbar(0,'Hybrid driving strategy...');
     j       = 0;
 
     while j < NoSteps
         
-        j = j+1;
-        SRD.(loc{locLoop,1}).AppliedEff(j,1) = EffLevel(EffStep);   % To recorded the applied Energy
-        Settings.HammerEfficiency(A.Analysis) = EffLevel(EffStep);% To re generate the D matrix Using new Energy Level
-        Data = D_MatrixGeneration(Settings,A,Data,loc,locLoop); 
-        SRD.(loc{locLoop}).AppliedEnergy(j,1) = EffLevel(EffStep); % Store the applied energy in each depth for future use
-        [NameOfFiles{j,1},SRD] = gwtWriter_Noise(Data,SRD,Settings,A,outstyle,out,Switch,locLoop,j);
+        j                                       = j+1;
+        SRD.(loc{locLoop,1}).AppliedEff(j,1)    = EffLevel(EffStep);   % To recorded the applied Energy
+        Settings.HammerEfficiency(A.Analysis)   = EffLevel(EffStep);% To re generate the D matrix Using new Energy Level
+        Data                                    = D_MatrixGeneration(Settings,A,Data,loc,locLoop); 
+        SRD.(loc{locLoop}).AppliedEnergy(j,1)   = EffLevel(EffStep); % Store the applied energy in each depth for future use
+        [NameOfFiles{j,1},SRD]                  = gwtWriter_Noise(Data,SRD,Settings,A,outstyle,out,Switch,locLoop,j);
 
-        if Settings.AutomaticSW(A.Analysis)==1  && j < SRD.(loc{locLoop,1}).SWPpileWtIdx
+        if Settings.AutomaticSW(A.Analysis) == 1  && j < SRD.(loc{locLoop,1}).SWPpileWtIdx
             disp(['Skip running DIGW in Hybrid driving mode for step ',num2str(j),' due to self penetration'])
         elseif Settings.DIGW(A.Analysis)
             back_path = pwd;
-            cd(Settings.DIGWFolder{1})
+            cd(Settings.DIGWFolder)
             DIGW_Noise(NameOfFiles{end},Settings,A,NoSteps,NoSteps);
             cd(back_path)
         end
         
-        [SRD]= AssembleResults_Noise (Data,SRD,Settings,A,NameOfFiles{end},loc,locLoop,j);
+        [SRD] = AssembleResults_Noise (Data,SRD,Settings,A,NameOfFiles{end},loc,locLoop,j);
         
         %% Check if desired depth is reached
         if hybrid_style == 1
-            if j >= EffDepth(EffStep) % Depth of change of efficiency is met
-                EffStep = EffStep+1;
+            if EffStep == size(EffLevel,1)
+                if j == EffDepth(EffStep) % Depth of change of efficiency is met
+                    EffStep = EffStep + 1;
+                end
+            else
+                if j == EffDepth(EffStep + 1) % Depth of change of efficiency is met
+                    EffStep = EffStep + 1;
+                end
             end
         elseif hybrid_style == 2
-            if NoSteps - j <= EffDepth(EffStep) % Depth of change of efficiency is met
-                EffStep = EffStep+1;
+            if EffStep == size(EffLevel,1)
+                if NoSteps - j == EffDepth(end) % Depth of change of efficiency is met
+                    EffStep = EffStep + 1;
+                end
+            else
+                if NoSteps - j == EffDepth(EffStep + 1) % Depth of change of efficiency is met
+                    EffStep = EffStep + 1;
+                end
             end
         else
             error('Wrong hybrid driving style selected')
