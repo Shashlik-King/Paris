@@ -61,6 +61,8 @@ for locLoop = 1:size(locfirst,1)
                 GE_filelist.(A.SimulationLable).dummy=1;   % Create a Dummy object just for first anlysis
                 if Settings.ISNoiseMit(A.Analysis)  % Nose mittigation run mode
                     [GE_SRD.(A.SimulationLable) ,GE_filelist.(A.SimulationLable),GE_Data.(A.SimulationLable)]=RunInNoiseMode(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),GE_filelist.(A.SimulationLable),Settings,A,loc,locLoop);
+                elseif Settings.Hybrid_driving_analysis(A.Analysis) == 1 || Settings.Hybrid_driving_analysis(A.Analysis) == 2 % Hybrid driving mode
+                    [GE_SRD.(A.SimulationLable) ,GE_filelist.(A.SimulationLable),GE_Data.(A.SimulationLable)]=RunHybridMode(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),GE_filelist.(A.SimulationLable),Settings,A,loc,locLoop);
                 else                                % Usual Run Mode
                     [GE_filelist.(A.SimulationLable),GE_SRD.(A.SimulationLable)]=gwtWriter(GE_Data.(A.SimulationLable),GE_SRD.(A.SimulationLable),GE_filelist.(A.SimulationLable),Settings,A,locations,locLoop);
                     % Run DIGW

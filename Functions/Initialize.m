@@ -16,10 +16,11 @@ Range={'Project' 'C3:I22'
     'DatabaseSetting' 'K3:L12'
     'Paths' 'K17:L18'
     'Output' 'N3:O5'
-    'Analysis' 'B26:AA45'
+    'Analysis' 'B26:AB45'
     'Model' 'B49:H60'
     'SoilSett' 'J49:T60'
     'EfficiencySteps'  'B65:C81'
+    'HybridSteps'  'E65:F81'
     };
 Sheets={'PROJ'};
 Files={'Input\PDACalc.xlsx'};
