@@ -4,14 +4,14 @@ function [filelist,SRD] = gwtWriter_Noise(Data,SRD,Settings,A,outstyle,out,Switc
 % i is the index of locations 
 % j is the index of Step of Penetration 
 
-if nargin ==8 || nargin==9
-    h=waitbar(0,'Writing .gwt files');
-    loc = Data.loc; % Get the Location data 
-    SimulationLable=Settings.SimulLable{A.Analysis};
-    factor_soil_method=SRD.(loc{i,1}).Soil.SRDMultiplier;
-    SRD.(loc{i}).UB_factor = factor_soil_method(2);
-    Index(j) = sum(SRD.(loc{i,1}).Soil.z_D(j)>=SRD.(loc{i,1}).Soil.z); % Define index for soil properties
-    filelist = {strcat(pwd,'\',Settings.Analysis{A.CALC},'\',loc{i,1},SimulationLable,'_',num2str(j))};
+if nargin == 8 || nargin == 9
+    h                       = waitbar(0,'Writing .gwt files');
+    loc                     = Data.loc; % Get the Location data 
+    SimulationLable         = Settings.SimulLable{A.Analysis};
+    factor_soil_method      = SRD.(loc{i,1}).Soil.SRDMultiplier;
+    SRD.(loc{i}).UB_factor  = factor_soil_method(2);
+    Index(j)                = sum(SRD.(loc{i,1}).Soil.z_D(j)>=SRD.(loc{i,1}).Soil.z); % Define index for soil properties
+    filelist                = {strcat(pwd,'\',Settings.Analysis{A.CALC},'\',loc{i,1},SimulationLable,'_',num2str(j))};
     %%-------------------Setup of InputGWL.gwt-----------------
     fileID = fopen([filelist{end},'.gwt'],'w');
     fprintf(fileID,'%-41s %13s\r\n',[loc{i,1} ' ' SimulationLable ' ' num2str(j)],'VER. 2010 0 0');
@@ -56,11 +56,10 @@ if nargin ==8 || nargin==9
     end       
     fclose(fileID);
     waitbar(i/size(loc,1),h);
-    SRD.(loc{i,1}).Index=Data.(loc{i,1}).Dindex;
-    SRD.(loc{i,1}).IndexS=Index;
+    SRD.(loc{i,1}).Index            = Data.(loc{i,1}).Dindex;
+    SRD.(loc{i,1}).IndexS           = Index;
     SRD.(loc{i,1}).Indexfilelist(2) = size(filelist,1);
     disp(['GRLWEAP input piles for Location: ', loc{i}, ' has been created']) 
     close(h)
+    end
 end
-end
-

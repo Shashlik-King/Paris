@@ -5,14 +5,11 @@ if strcmp(SymbolIn,'line')
     Symbol='-';
 elseif strcmp(SymbolIn,'dash')
     Symbol='--';       
-elseif strcmp(SymbolIn,'circle')
-    Symbol='o';
-elseif strcmp(SymbolIn,'plus')
-    Symbol='+';
-elseif strcmp(SymbolIn,'dash dott')
+elseif strcmp(SymbolIn,'dot')
+    Symbol=':';
+elseif strcmp(SymbolIn,'dash dot')
     Symbol='-.';    
 else 
-    
     error('undifined symbol for the graph')
 end 
 

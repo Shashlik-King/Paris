@@ -25,71 +25,83 @@ import xlsxwriter
 
 
 def convertfiles(DepthinterestIDX, Directory,Location_name):    
+    
     for i in DepthinterestIDX:
         
-        File_name=Directory+Location_name+'_'+str(i)+".GWV"
-        WindowsName="Variable Graph - "+ Windows_11+str(i)   
+        try:
+            File_name=Directory+Location_name+'_'+str(i)+".GWV"
+            WindowsName="Variable Graph - "+ Windows_11+str(i)   
+            
         
-    
-        if os.path.isfile(Directory+Location_name+str(i)+".txt"):
-            print ("File exist")
-            os.remove(Directory+Location_name+str(i)+".txt")
+            if os.path.isfile(Directory+Location_name+str(i)+".txt"):
+                print ("File exist")
+                os.remove(Directory+Location_name+str(i)+".txt")
+                
+            if os.path.isfile(File_name):
+                # app = Application(backend="win32").start("C:\GRLWEAP\Gwv.exe")
+                app = Application(backend="win32").start("C:\PDI\GRLWEAP_2010\Gwv.exe")
+            #    app.Open.type_keys(" C:\Projects\Test\FILE1.GWV")
+                app.Open.type_keys(File_name)
+                
+                #app.Open.UP.click()
+                time.sleep(1)
+                app.Open.Open.click()
+                
+                time.sleep(1)
+                
+                #pywinauto.mouse.click(button='left', coords=(1267, 964))
+                
+                try:
+                    print ('Select "%s"' % WindowsName)
+                    #app.connect(title_re="%s" % WindowsName)
+                    dlg_spec = app.top_window_()
+                    dlg_spec.MenuSelect("Window -> &1 "+Location_name+str(i))
+                    dlg_spec.MenuSelect("File -> SaveAs")       
+                except(WindowNotFoundError):     
+                    print( '"%s" not found' % WindowsName)
+                    pass
+                except(WindowAmbiguousError):
+                    print ('There are too many "%s" windows found' % WindowsName)
+                    pass
+        
+        #    dlg_spec = app.window(title='Variable Graph - FILE1')
+        #    dlg_spec = app.window(title=WindowsName)    
+        #    app.VariableGraphFILE1.MenuSelect("Window -> &1 FILE1")
+         
+        #    app.VariableGraphFILE1.MenuSelect("Window -> &1 FILE1")
+        #    
+        #    app.VariableGraphFILE1.MenuSelect("File -> SaveAs")
             
-        if os.path.isfile(File_name):
-            # app = Application(backend="win32").start("C:\GRLWEAP\Gwv.exe")
-            app = Application(backend="win32").start("C:\PDI\GRLWEAP 2010\Gwv.exe")
-        #    app.Open.type_keys(" C:\Projects\Test\FILE1.GWV")
-            app.Open.type_keys(File_name)
+        
             
-            #app.Open.UP.click()
-            time.sleep(1)
-            app.Open.Open.click()
-            
-            time.sleep(1)
-            
-            #pywinauto.mouse.click(button='left', coords=(1267, 964))
-            
-            try:
-                print ('Select "%s"' % WindowsName)
-                #app.connect(title_re="%s" % WindowsName)
+                app.SaveAs.type_keys(Directory+Location_name+str(i)+".txt")
+                
+                time.sleep(2)
+                
+                app.SaveAs.Save.Click()
+                time.sleep(1)    
+                pywinauto.keyboard.send_keys("{ENTER}")
+                
+                time.sleep(3)
                 dlg_spec = app.top_window_()
-                dlg_spec.MenuSelect("Window -> &1 "+Location_name+str(i))
-                dlg_spec.MenuSelect("File -> SaveAs")       
-            except(WindowNotFoundError):     
-                print( '"%s" not found' % WindowsName)
-                pass
-            except(WindowAmbiguousError):
-                print ('There are too many "%s" windows found' % WindowsName)
-                pass
-    
-    #    dlg_spec = app.window(title='Variable Graph - FILE1')
-    #    dlg_spec = app.window(title=WindowsName)    
-    #    app.VariableGraphFILE1.MenuSelect("Window -> &1 FILE1")
-     
-    #    app.VariableGraphFILE1.MenuSelect("Window -> &1 FILE1")
-    #    
-    #    app.VariableGraphFILE1.MenuSelect("File -> SaveAs")
+                dlg_spec.MenuSelect("File -> Exit")
+                
+                #app.VariableGraphFILE1.type_keys("%{F4}") 
+                
+            
+                time.sleep(2)
+            else:
+                print ('file  "%s" not exists' % Location_name+str(i)+".GWV")
+        except Exception as error_variable:
+
+            error_string=str(error_variable);
+            print("^^^^There was an ERROR for DepthinterestIDX:  "+ str(i) +"^^^^")
+            print(error_string)
+            print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+            pass
         
-    
         
-            app.SaveAs.type_keys(Directory+Location_name+str(i)+".txt")
-            
-            time.sleep(2)
-            
-            app.SaveAs.Save.Click()
-            time.sleep(1)    
-            pywinauto.keyboard.send_keys("{ENTER}")
-            
-            time.sleep(3)
-            dlg_spec = app.top_window_()
-            dlg_spec.MenuSelect("File -> Exit")
-            
-            #app.VariableGraphFILE1.type_keys("%{F4}") 
-            
-        
-            time.sleep(2)
-        else:
-            print ('file  "%s" not exists' % Location_name+str(i)+".GWV")
+                    
    
   
             ###########################################################################################
@@ -150,18 +162,21 @@ def plotTimeSeries(locName,anaName,GE_DepthinterestIDX,GE_Sections,FDLr,GE_Depth
                     ax1 = fig1.add_subplot(subplot_index)
                     axisDefault(ax1,'Distance from pile head '+str(DepthSection[index_list[i]])+' m','Time [ms]',"Acceleration [g's]")
                     for j in range(len(plotDepth)):
-                        t,acc = extractFromFile(CurrentDir+'\\'+Foldername+'\\'+location.rstrip()+analysis+str(plotDepth[j])+'.txt',IDtoPlot[i],IDofSec)#PLEASE CHECK THE FINAL NAMING + path
-                        worksheet_name = 'Sec. 11 Acc_' + str(int(DepthSection[i])) + '_' + str(plotDepth[j])
-                        worksheet = workbook.add_worksheet(worksheet_name)
-                        worksheet.write_string('B1', 'Time')
-                        worksheet.write_string('C1', 'Acceleration')
-                        worksheet.write_string('B2', '[s]')
-                        worksheet.write_string('C2', '[g\'s]')
-                        for row_num, data in enumerate(t):
-                            worksheet.write(row_num+2 , 1, data)
-                        for row_num, data in enumerate(acc):
-                            worksheet.write(row_num+2 , 2, data)
-                        ax1.plot(t,acc,label='Penetration '+str(plotDepth[j])+ ' m')
+                        try:
+                            t,acc = extractFromFile(CurrentDir+'\\'+Foldername+'\\'+location.rstrip()+analysis+str(plotDepth[j])+'.txt',IDtoPlot[i],IDofSec)#PLEASE CHECK THE FINAL NAMING + path
+                            worksheet_name = 'Sec. 11 Acc_' + str(int(DepthSection[i])) + '_' + str(plotDepth[j])
+                            worksheet = workbook.add_worksheet(worksheet_name)
+                            worksheet.write_string('B1', 'Time')
+                            worksheet.write_string('C1', 'Acceleration')
+                            worksheet.write_string('B2', '[s]')
+                            worksheet.write_string('C2', '[g\'s]')
+                            for row_num, data in enumerate(t):
+                                worksheet.write(row_num+2 , 1, data)
+                            for row_num, data in enumerate(acc):
+                                worksheet.write(row_num+2 , 2, data)
+                            ax1.plot(t,acc,label='Penetration '+str(plotDepth[j])+ ' m')
+                        except:
+                            pass
                     ax1.legend(loc='upper right')
                     fig1.tight_layout()        
                     # fig1.savefig(CurrentDir+'\\Plots\\'+location.rstrip()+'_'+str(DepthSection[index_list[i]])+'_ACCTime.png',dpi=300)    
@@ -283,12 +298,17 @@ for loc in np.arange(len(Locations)):
         DicFiles=Foldername[analysis]      # 
         Directory=CurrentDir+'\\'+DicFiles+'\\'
         File_Number=np.arange(First_Depth_Blow,Last_Depth)
+        
         convertfiles(Impact_depth, Directory,Location_name)
+
     GE_Sections.append(SectionsOfInter)
     GE_Depth_Section.append(DepthSecOfInter)
     GE_DepthinterestIDX.append(DepthinterestIDX)
     GE_SwitchSectionIn.append(SwitchSectionIn)
+
+
 plotTimeSeries(Locations,Analysislabe,GE_DepthinterestIDX,GE_Sections,Foldername,GE_Depth_Section,GE_SwitchSectionIn)  
+
         
     
     #%%
