@@ -1,4 +1,4 @@
-function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Alm_herme(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,Damping_Table, Glauconite_Rf_Multiplier,Lehane_variables, Thichness, Diameter)
+function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Lehane(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,Damping_Table, Glauconite_Rf_Multiplier,Lehane_variables, Thichness, Diameter)
 
 % i is the index of the soil 
 % j is the the index of z matrix (location of the tip)
