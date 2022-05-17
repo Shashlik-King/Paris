@@ -2,16 +2,10 @@ function [SRD ,filelist,Data]=RunInNoiseMode(Data,SRD,filelist,Settings,A,loc,lo
 
 if nargin ==6 || nargin==7
     disp(['Run the Noise mittigation stratgy for location' , loc{locLoop,1} ])
-    
     EffLevel=Settings.StepsOfHammer;   % Sequance of incearing the hammer efficiency
-    
     RefCriterion=Settings.NoiseMitRef(A.Analysis);  % Noise mittigation refusal Criterion
-    
-   
-    
     SimulationLable=Settings.SimulLable{A.Analysis};
-        
-    
+
     if strcmp(Settings.OutPutStyle{A.Analysis},'Normal')
         outstyle=0;
         out='Nor';
@@ -30,21 +24,12 @@ if nargin ==6 || nargin==7
         out='Nor';
         Switch=0;
     end
-    
-    
-    
-    
+
     NoSteps = Data.(loc{locLoop}).NoSteps;    % Load stored number of steps
-    
     SRD.(loc{locLoop,1}).Indexfilelist(1) = 1;
-    
     soilMethodLoop=1;
-    
-    
     EffStep=1;  % Starting with the first efficiency level
-    
     h=waitbar(0,'Noise Mittigation Stratgy...');
-    
     j=0;
     % for j=1:NoSteps
     while j<NoSteps
@@ -66,7 +51,7 @@ if nargin ==6 || nargin==7
             disp(['Skip running DIGW in Noise mittigation mode for step ',num2str(j),' due to self penetration'])
         elseif Settings.DIGW(A.Analysis)
             back_path = pwd;
-            cd(Settings.DIGWFolder{1})
+            cd(Settings.DIGWFolder)
             DIGW_Noise(NameOfFiles{end},Settings,A,NoSteps,NoSteps);
             cd(back_path)
         end

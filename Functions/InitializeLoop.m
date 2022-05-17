@@ -78,7 +78,7 @@ if A.Database == 1
         [Data.(Data.loc{i,1}).PileGeometry, Data.(Data.loc{i,1}).pile_top,Data.(Data.loc{i,1}).pile_tip]= Input_Pmatrix_DB(Settings,Data.loc{i,1});    % Get pile information
         if A.CaclculateFatigue==1
         Data.(Data.loc{i,1}).SCF            = Input_SCFSNmatrix_DB(Settings,Data.loc{i,1});    % Get SCF and SN information
-        end 
+        end
         if ~isnumeric(Data.loc{i,2})     % Check if embedment is defined manualy, else read from database
             Data.loc{i,2} = Input_embedment_DB(Settings,Data.loc{i,1});
         end
