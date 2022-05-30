@@ -1,0 +1,42 @@
+
+
+            R4_NGI Entrapped_BE 2                            0  kN    0    0
+
+
+
+
+
+                                G/L at Shaft and Toe:  1.000  1.000
+    Depth      Rut  Frictn  End Bg   Bl Ct Com Str Ten Str  Stroke   ENTHRU
+      1.0  14762.8   683.2 14079.6     0.0   0.000   0.000    2.02      0.0
+      2.0  20167.0  3118.2 17048.7     0.0   0.000   0.000    2.02      0.0
+
+Total No. of Blows:           0; (driving time depends on blow rate)
+ Hammer:
+IHC     S-4000                1              3          1.000
+
+               Table of Depths Analyzed with Driving System Modifiers
+
+               Temp.      Wait Equivalent Pressure             Stiffn.   Cushion
+     Depth    Length      Time    Stroke     Ratio   Efficy.    Factor       CoR
+         m         m        hr         m
+      1.00     78.50      0.00      2.02      0.00      0.95      1.00      1.00
+      2.00     78.50      0.00      2.02      0.00      0.95      1.00      1.00
+
+
+                         Soil Layer Resistance Values
+           Shaft     End   Shaft     Toe   Shaft     Toe    Soil   Limit   Setup
+   Depth    Res. Bearing   Quake   Quake Damping Damping   Setup Distance   Time
+       m     kPa      MN      mm      mm     s/m     s/m Normlzd       m     hrs
+    0.00    0.00   0.000   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.49    8.35   5.648   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.49    8.35   5.648   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.50   11.42   9.090   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    0.50   11.42   9.090   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.00   25.18  14.079   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.24   33.56  16.500   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.24   33.56  16.500   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.25   35.09  17.387   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    1.25   35.09  17.387   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+    2.00   52.54  17.049   2.500   2.500   0.250   0.500   1.000   0.000   0.000
+   78.50   52.54  17.049   2.500   2.500   0.250   0.500   1.000   0.000   0.000
