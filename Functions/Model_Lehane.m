@@ -1,10 +1,7 @@
 function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Lehane(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,Damping_Table, Glauconite_Rf_Multiplier,Lehane_variables, Thichness, Diameter)
-%FKMV
+%FKMV - 2022-05-31 
 % i is the index of the soil 
 % j is the the index of z matrix (location of the tip)
-Lehane_variables{1,1}=Lehane_variables{2,1};
-Lehane_variables{1,2}=Lehane_variables{2,2};
-Lehane_variables{1,3}=Lehane_variables{2,3};
 
 a = Lehane_variables{i,1};
 b = Lehane_variables{i,2};

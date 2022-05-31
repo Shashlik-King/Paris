@@ -150,6 +150,7 @@ SRD_profile=Data.(loc{1}).SRD_prop(1:sum(loc{2} > cell2mat(Data.(loc{1}).SRD_pro
 
              % Assining the Frist row 
             Damping_Table(1,:)= SRD_profile(1,5:12);  
+            Lehane_variables(1,:)= SRD_profile(1,18:20);  
             SoilTable(1,4)=SoilProfile_1(1,5);    % Assigning Gamma Efective 
             SoilTable(1,7)=SoilProfile_1(1,7);    % Assigning Delta Friction angle          
             SoilTable(1,8)=SRD_profile(1,4);    % Assigning SRD Model 
