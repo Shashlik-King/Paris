@@ -68,16 +68,16 @@ if j>=StartIdx
     end
     
     for k = 1:size(Index,1)/2     % Looping over all tables with results for the stresses
-        Temp = cell2mat(cellfun(@(x) textscan(x,'%f'),GWO{1,1}(Index(2*k-1)+2:Index(2*k-1)+50)'))';
-        SRD.(loc{i}).mxT(1:49,H+k) = Temp(:,2)*MN;
-        SRD.(loc{i}).mxC(1:49,H+k) = Temp(:,3)*MN;
-        SRD.(loc{i}).TStress(1:49,H+k) = Temp(:,4);
-        SRD.(loc{i}).CStress(1:49,H+k) = Temp(:,5);
-        Temp = cell2mat(cellfun(@(x) textscan(x,'%f'),GWO{1,1}(Index(2*k)+2:Index(2*k)+(Settings.PileSeg(A.Analysis)-48))'))';
-        SRD.(loc{i}).mxT(50:Settings.PileSeg(A.Analysis),H+k) = Temp(:,2)*MN;
-        SRD.(loc{i}).mxC(50:Settings.PileSeg(A.Analysis),H+k) = Temp(:,3)*MN;
-        SRD.(loc{i}).TStress(50:Settings.PileSeg(A.Analysis),H+k) = Temp(:,4);
-        SRD.(loc{i}).CStress(50:Settings.PileSeg(A.Analysis),H+k) = Temp(:,5);
+        Temp                            = cell2mat(cellfun(@(x) textscan(x,'%f'),GWO{1,1}(Index(2*k-1)+2:Index(2*k-1)+50)'))';
+        SRD.(loc{i}).mxT(1:49,H+k)      = Temp(:,2)*MN;
+        SRD.(loc{i}).mxC(1:49,H+k)      = Temp(:,3)*MN;
+        SRD.(loc{i}).TStress(1:49,H+k)  = Temp(:,4);
+        SRD.(loc{i}).CStress(1:49,H+k)  = Temp(:,5);
+        Temp                            = cell2mat(cellfun(@(x) textscan(x,'%f'),GWO{1,1}(Index(2*k)+2:Index(2*k)+(Settings.PileSeg(A.Analysis)-48))'))';
+        SRD.(loc{i}).mxT(50:Settings.PileSeg(A.Analysis),H+k)       = Temp(:,2)*MN;
+        SRD.(loc{i}).mxC(50:Settings.PileSeg(A.Analysis),H+k)       = Temp(:,3)*MN;
+        SRD.(loc{i}).TStress(50:Settings.PileSeg(A.Analysis),H+k)   = Temp(:,4);
+        SRD.(loc{i}).CStress(50:Settings.PileSeg(A.Analysis),H+k)   = Temp(:,5);
     end
 else 
     %% Assiging the zero value for those peth covered by self penetration

@@ -1,7 +1,7 @@
 function [Settings] = Initialize()
 
 % Load Locations from Excel
-Range={'Locations' 'B2:w200'};
+Range={'Locations' 'B2:W200'};
 Sheets={'LOCATIONS'};
 Files={'Input\PDACalc.xlsx'};
 Settings=ExcelSett(Files,Sheets,Range);
@@ -13,7 +13,7 @@ Sett=ExcelSett(Files,Sheets,Range);
 
 % Load calculations settings from Excel
 Range={'Project' 'C3:I22'
-    'DatabaseSetting' 'K3:L12'
+    'DatabaseSetting' 'K3:L15'
     'Paths' 'K17:L18'
     'Output' 'N3:O5'
     'Analysis' 'B26:AB45'
