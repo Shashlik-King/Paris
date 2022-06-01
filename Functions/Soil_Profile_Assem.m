@@ -1,4 +1,4 @@
-function [SoilTable  Damping_Table SRDMultiplier HammerBreakCoeff Glauconite_Rf_Multiplier]=Soil_Profile_Assem(Data,Settings,A,loc,SRD)
+function [SoilTable  Damping_Table SRDMultiplier HammerBreakCoeff Glauconite_Rf_Multiplier Lehane_variables]=Soil_Profile_Assem(Data,Settings,A,loc,SRD)
 
 
 %%%%Defining the soil type%%%%%%%%5    
@@ -85,7 +85,7 @@ SRD_profile=Data.(loc{1}).SRD_prop(1:sum(loc{2} > cell2mat(Data.(loc{1}).SRD_pro
     
     z=cell2mat(SoilTable(:,1)); 
     soil_index=zeros(size(z));  % initilize the soil index vector
-    Damping_Table=cell(size(SoilTable,1),size(SRD_profile,2)-9); 
+    Damping_Table=cell(size(SoilTable,1),size(SRD_profile,2)-12); 
     
     SRDMultiplier=zeros(size(SoilTable,1),1);
     
@@ -140,7 +140,7 @@ SRD_profile=Data.(loc{1}).SRD_prop(1:sum(loc{2} > cell2mat(Data.(loc{1}).SRD_pro
             Damping_Table(i,:)= SRD_profile(ii,5:12);
             HammerBreakCoeff(i,1)=SRD_profile(ii,15);
             Glauconite_Rf_Multiplier(i,1) = SRD_profile(ii,17);
-            
+            Lehane_variables(i,:) = SRD_profile(ii,18:20);
         end 
 
         end 
@@ -150,6 +150,7 @@ SRD_profile=Data.(loc{1}).SRD_prop(1:sum(loc{2} > cell2mat(Data.(loc{1}).SRD_pro
 
              % Assining the Frist row 
             Damping_Table(1,:)= SRD_profile(1,5:12);  
+            Lehane_variables(1,:)= SRD_profile(1,18:20);  
             SoilTable(1,4)=SoilProfile_1(1,5);    % Assigning Gamma Efective 
             SoilTable(1,7)=SoilProfile_1(1,7);    % Assigning Delta Friction angle          
             SoilTable(1,8)=SRD_profile(1,4);    % Assigning SRD Model 
