@@ -13,12 +13,9 @@ if nargin ==4 || nargin==5
     
     R_eqauv=SRD.(loc{1}).Eqau_Redius_bot(end,1);
     Thichness=SRD.(loc{1}).tw(end,1);
-    Diameter=SRD.(loc{1}).out_daim(end,1);
+    Diameter=SRD.(loc{1}).out_daim(end,1);  
     
-    
-    [SoilTable  Damping_Table SRDMultiplier HammerBreakCoeff Glauconite_Rf_Multiplier]=Soil_Profile_Assem(Data,Settings,A,loc,SRD);
-    
-      
+    [SoilTable, Damping_Table, SRDMultiplier, HammerBreakCoeff, Glauconite_Rf_Multiplier, Lehane_variables]=Soil_Profile_Assem(Data,Settings,A,loc,SRD);
     
     % Generate z
     n=size(SoilTable,1);  % Set number of soil springs
@@ -33,6 +30,8 @@ if nargin ==4 || nargin==5
     
     Delta_phi = cell2mat(SoilTable(:,7));    % Delta phi
     phi = cell2mat(SoilTable(:,9));    %phi
+    
+
     
     % CPT values onto z and convert to kPa
     CPT(:,1) = cell2mat(SoilTable(:,5))*MPa;     %qc in kPa
@@ -57,43 +56,44 @@ if nargin ==4 || nargin==5
     fs = nan(length(z_D),n);
     
     for j = 1:length(z_D)    % loop over the location of the tip
+        % Pile diameter inner calculations used for Lehane
+%         cum_pile_length = 0;
+%         for iii = 1:size(Data.(loc{1}).PileGeometry,1)
+%             cum_pile_length(iii+1) =  cum_pile_length(iii) + Data.(loc{1}).PileGeometry{end-iii+1,4};
+%         end
+%         wt_index = find(cum_pile_length < z_D(j));
+%         wall_thickness = Data.(loc{1}).PileGeometry{end-wt_index+1,3};% find wall thickness at given distance from pile tip 
+%         D_i = Diameter - wall_thickness; % calculate internal pile diameter
+        
+        for i=1:n     %Loop over the soil profile depth   
+            SRD_model=Model{i};
+        
+            switch SRD_model
+                case  'Alm_Hamre'
+                    [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table ,Glauconite_Rf_Multiplier);
 
-    for i=1:n     %Loop over the soil profile depth
-           
-        SRD_model=Model{i};
-        
-        switch SRD_model
-            case  'Alm_Hamre'
-        
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table ,Glauconite_Rf_Multiplier);
-    
-            case 'Alm_Hamre_2018'
-                
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table,Glauconite_Rf_Multiplier);
-                
-            case  'ICP_18'  %%%Case Model is Stevense
-                
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_ICP_18(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table);
-        
-            case  'Jones'  %%%Case Model is Jones
-        [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
+                case 'Alm_Hamre_2018'
+                    [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table,Glauconite_Rf_Multiplier);
 
-        %%Case Model is Alpaca
+                case  'ICP_18'  %%%Case Model is Stevense  
+                    [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_ICP_18(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table);
 
-        
-        %% Case Model is Holly Man
-        end 
-        
-        %%Applying the Hammer Break Down  , if the depth of penetration is
-        %%larger than the define depth, then we apply the coefficient on
-        %%the Shaft from the top to the depth of hammer break down
-        %%Note : Hammer break down is applied only two meters according to
-        %%DNV GL 
-        if z_D(j) >= z_D(end)-Settings.HammerBreakDepth(A.Analysis) && z_D(j)<= z_D(end)-Settings.HammerBreakDepth(A.Analysis)+2  && z(i)<=z_D(end)-(Settings.HammerBreakDepth(A.Analysis)-2) 
-            fs(j,i)=fs(j,i)*cell2mat(HammerBreakCoeff(i,1)); % Shaft resistance from depth to the depth of hammer break down would be multiplied by factor.            
-        end  
+                case  'Jones'  %%%Case Model is Jones
+                    [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St);
 
-    end
+                case  'Lehane'  %%%Case Model is Lehane
+                    [fsi(i) fsres(i) qt(i) k(i) fs(j,i) SkinQuake(i) ToeQuake(i) SkinDamping(i) ToeDamping(i)]=Model_Lehane(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,Delta_phi,Damping_Table ,Glauconite_Rf_Multiplier,Lehane_variables, Thichness, Diameter);
+            end 
+
+            %%Applying the Hammer Break Down  , if the depth of penetration is
+            %%larger than the define depth, then we apply the coefficient on
+            %%the Shaft from the top to the depth of hammer break down
+            %%Note : Hammer break down is applied only two meters according to
+            %%DNV GL 
+            if z_D(j) >= z_D(end)-Settings.HammerBreakDepth(A.Analysis) && z_D(j)<= z_D(end)-Settings.HammerBreakDepth(A.Analysis)+2  && z(i)<=z_D(end)-(Settings.HammerBreakDepth(A.Analysis)-2) 
+                fs(j,i)=fs(j,i)*cell2mat(HammerBreakCoeff(i,1)); % Shaft resistance from depth to the depth of hammer break down would be multiplied by factor.            
+            end  
+        end
     end    
     
     % Save results in SRD structure for current location for later use 
