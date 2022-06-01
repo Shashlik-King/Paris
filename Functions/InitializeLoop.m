@@ -9,16 +9,16 @@ function Data = InitializeLoop(Settings,A,Data,locations,locLoop)
     Data.loc =locations;
     
     
-    Range={'PileGeometry' 'B2:E36'
-        'SCF'          'G2:J36'
+    Range={'PileGeometry' 'B2:E100'
+        'SCF'          'G2:J100'
         'Selected_Points' 'L2:N14'
-        'SRD_prop'  'Q2:AJ30'};
+        'SRD_prop'  'Q2:AJ52'};
     Files={'Input\PDACalc.xlsx'};
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);   % PNGI
     
     Range={'CPTData' 'K5:M30000'          % CPT original data
-        'SoilData'  'Q5:S44'        % CPT interpratated data
-        'SoilProfile' 'A5:I45'};      % Soil Profile
+        'SoilData'  'Q5:S105'        % CPT interpratated data
+        'SoilProfile' 'A5:I55'};      % Soil Profile
     Files={Settings.Excel{A.Analysis,1}};
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);
     disp('Manual input used')
