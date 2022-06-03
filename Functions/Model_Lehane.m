@@ -1,4 +1,4 @@
-function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Lehane(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,Damping_Table, Glauconite_Rf_Multiplier,Lehane_variables, Thichness, Diameter)
+function [fsi, fsres, qt, k, fs, SkinQuake, ToeQuake, SkinDamping, ToeDamping] = Model_Lehane(j,i,T,~,~,CPT,z,z_D,~,~,phi,Damping_Table, Glauconite_Rf_Multiplier,Lehane_variables, Thichness, Diameter, loc)
 %FKMV - 2022-05-31 
 % i is the index of the soil 
 % j is the the index of z matrix (location of the tip)
@@ -6,7 +6,6 @@ function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Leh
 a = Lehane_variables{i,1};
 b = Lehane_variables{i,2};
 c = Lehane_variables{i,3};
-
 
 f_t = 1; % f_t/f_c should be 1 for piles in compression and 0.75 for piles in tension
 f_c = 1; % f_t/f_c should be 1 for piles in compression and 0.75 for piles in tension

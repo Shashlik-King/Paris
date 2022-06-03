@@ -13,18 +13,18 @@ if sum(Settings.LocationSwitch) == 0
 end
 
 % Missing embedment length for analysis
-for i = 1:sum(Settings.LocationSwitch)
-    if sum(isnan([Settings.Locations{Settings.LocationSwitch(i),2:size(Settings.Analysis,1)}])) > 0
-        error('Undefined embedment length for an analysis')
-    end
-end
+% for i = 1:sum(Settings.LocationSwitch)
+%     if sum(isnan([Settings.Locations{Settings.LocationSwitch(i),2:size(Settings.Analysis,1)}])) > 0
+%         error('Undefined embedment length for an analysis')
+%     end
+% end
 
 % Missing water depth
-for i = 1:sum(Settings.LocationSwitch)
-    if isnan(Settings.Locations{Settings.LocationSwitch(i),end})
-        error('Undefined embedment length for an analysis')
-    end
-end
+% for i = 1:sum(Settings.LocationSwitch)
+%     if isnan(Settings.Locations{Settings.LocationSwitch(i),end})
+%         error('Undefined water depth for an analysis')
+%     end
+% end
 
 %% PROJ Tab
 % No analyses
@@ -80,7 +80,7 @@ if Settings.Excel_switch
     end
 end
 %% Database Fatigue Tab
-if Settings.DBFatDam
+if Settings.Database.FSwitch
    % No switch turned on
    
    

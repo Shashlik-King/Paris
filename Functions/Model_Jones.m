@@ -1,4 +1,4 @@
-function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,R_eqauv,Thichness,Diameter,Damping_Table,YSR,St)
+function [fsi, fsres, qt, k, fs, SkinQuake, ToeQuake, SkinDamping, ToeDamping]=Model_Jones(j,i,T,sigv,Pa,CPT,z,z_D,~,~,phi,~,~,~,Damping_Table,YSR,St,Glauconite_Rf_Multiplier,loc)
 
         % i is the index of the soil 
         % j is the the index of z matrix (location of the tip)

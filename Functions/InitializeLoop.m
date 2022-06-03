@@ -17,8 +17,8 @@ function Data = InitializeLoop(Settings,A,Data,locations,locLoop)
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);   % PNGI
     
     Range={'CPTData' 'K5:M30000'          % CPT original data
-        'SoilData'  'Q5:S105'        % CPT interpratated data
-        'SoilProfile' 'A5:I55'};      % Soil Profile
+        'SoilData'  'Q5:U105'        % CPT interpratated data
+        'SoilProfile' 'A5:J55'};      % Soil Profile
     Files={Settings.Excel{A.Analysis,1}};
     Data=ExcelData(Files,Data.loc(:,1),Range,Data);
     disp('Manual input used')
