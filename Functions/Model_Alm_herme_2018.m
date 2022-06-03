@@ -1,11 +1,11 @@
-function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,Damping_Table,Glauconite_Rf_Multiplier)
+function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping] = Model_Alm_herme_2018(j,i,T,sigv,Pa,CPT,z,z_D,A,Settings,phi,Damping_Table,Glauconite_Rf_Multiplier,loc)
 
         % i is the index of the soil 
         % j is the the index of z matrix (location of the tip)
        
 
-        if T(i)==1   %SAND
-            if phi(i)<= 0
+        if T(i) == 1   %SAND
+            if phi(i) <= 0
                 error('Wrong input of phi for sand in AlmHamre.m - phi-5 used for calculation is negative ')
             end
             K=(0.0132*CPT(i,1)*(sigv(i)/Pa)^(0.13))/sigv(i);
@@ -58,7 +58,7 @@ function [fsi fsres qt k fs SkinQuake ToeQuake SkinDamping ToeDamping]=Model_Alm
             %SkinDamping=Settings.SkinDampClay(A.Soil);
             %ToeDamping=Settings.ToeDampClay(A.Soil);            
         else
-            error(['Soil not defined for ' loc{1} ' in AlmHamre.m function' ])
+            error(['Soil not defined for ' loc{1} ' in AlmHamre_2018.m function' ])
         end
         
 
