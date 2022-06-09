@@ -1,25 +1,26 @@
-function [fsi, fsres, qt, k, fs, SkinQuake, ToeQuake, SkinDamping, ToeDamping] = Model_Boughas(j,i,T,sigv,Pa,CPT,z,z_D,~,~,phi,Damping_Table,Glauconite_Rf_Multiplier, K_0, loc)
+function [fsi, fsres, qt, k, fs, SkinQuake, ToeQuake, SkinDamping, ToeDamping] = Model_Boughas(j,i,T,sigv,~,CPT,z,z_D,~,~,phi,Damping_Table,Glauconite_Rf_Multiplier, K_0, loc)
 % i is the index of the soil 
 % j is the the index of z matrix (location of the tip)
-  
-if T(i) == 4  % Glauconite
-    K = (0.0132*CPT(i,1)*(sigv(i)/Pa)^(0.13))/sigv(i);
+if T.tip(i) == 4  % Glauconite
+    qt          = (0.1*CPT.tip(i,1)*(CPT.tip(i,1)/sigv.tip(i))^0.2);
+else
+    error(['Soil not defined for ' loc{1} ' in Boughas.m function' ])
+end
+
+if T.shaft(i) == 4  % Glauconite
     if isnan(Glauconite_Rf_Multiplier{i})
        error(['Glauconite defined for ' loc{1} ' needs a multiplier for its higher shaft friction' ]) 
     elseif Glauconite_Rf_Multiplier{i} == -1
-        Rf = 100 * CPT(i,2)/CPT(i,1);
+        Rf = 100 * CPT.shaft(i,2)/CPT.shaft(i,1);
     else
         Rf = Glauconite_Rf_Multiplier{i};
     end
-%     fsi= Rf* 0.5*K*sigv(i)*tan((phi(i))*pi/180);               % Friction only outside
-%     fsres = 0.2 * fsi;
-    sigma_h     = K_0(i) * sigv(i) + CPT(i,5);
-    fsi         = Rf * 0.5 * K * sigma_h * tan((phi(i))*pi/180);               % Friction only outside
-    sigma_h_res = K_0(i) * sigv(i) + 0.5 * CPT(i,5);
-%     fsres       = Rf * 0.5 * K * sigma_h_res * tan((phi(i))*pi/180);
-    fsres       = Rf * 0.5 * K * sigma_h_res * tan((15)*pi/180);
-    qt          = (0.1*CPT(i,1)*(CPT(i,1)/sigv(i))^0.2);
-    k           = ((CPT(i,1)/sigv(i))^(0.5))/80;     
+    sigma_h     = K_0.shaft(i) * sigv.shaft(i) + abs(CPT.shaft(i,5));
+    fsi         = Rf * 0.5 * sigma_h * tan((phi.shaft(i))*pi/180);               % Friction only outside
+    sigma_h_res = K_0.shaft(i) * sigv.shaft(i) + 0.5 *  abs(CPT.shaft(i,5));
+    fsres       = Rf * 0.5 * sigma_h_res * tan((15)*pi/180);
+    qt          = (0.1*CPT.tip(i,1)*(CPT.tip(i,1)/sigv.tip(i))^0.2);
+    k           = ((CPT.shaft(i,1)/sigv.shaft(i))^(0.5))/80;     
 
 else
     error(['Soil not defined for ' loc{1} ' in Boughas.m function' ])

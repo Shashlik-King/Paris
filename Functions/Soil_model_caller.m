@@ -1,7 +1,7 @@
 function[SRD] = Soil_model_caller(Data,Settings,A,loc,SRD)
+
 if nargin ==4 || nargin==5
-    %%% Skin friction and end bearing calculations - calling different types of soil models
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% Skin friction and end bearing calculations - calling different types of soil models
     Pa          = 100;          % Reference atmospheric pressure [kPa]
     MPa         = 1000;         % Convert MPa to kPa
     R_eqauv     = SRD.(loc{1}).Eqau_Redius_bot(end,1);
@@ -10,35 +10,60 @@ if nargin ==4 || nargin==5
     [SoilTable, Damping_Table, SRDMultiplier, HammerBreakCoeff, Glauconite_Rf_Multiplier, Lehane_variables] = Soil_Profile_Assem(Data,Settings,A,loc,SRD);
     
     % Generate z
-    n = size(SoilTable,1);  % Set number of soil springs
-    z = cell2mat(SoilTable(:,1));
+    n = size(SoilTable.tip,1);  % Set number of soil springs
+    z = cell2mat(SoilTable.tip(:,1));
     
-    % Interpolate soil onto z
-    gamma       = cell2mat(SoilTable(:,4));  %Unitweight
-    T           = cell2mat(SoilTable(:,3));      %Soilmodel
-    Model       = SoilTable(:,8);              %SRD Model
-    YSR         = SoilTable(:,10);              %SRD Model
-    St          = SoilTable(:,11);              %SRD Model
-    Delta_phi   = cell2mat(SoilTable(:,7));    % Delta phi
-%     phi = cell2mat(SoilTable(:,9));    %phi
-    K_0         = cell2mat(SoilTable(:,10));    % K_0
+    %% Interpolate soil onto z
+    % Tip values
+    gamma.tip       = cell2mat(SoilTable.tip(:,4));  %Unitweight
+    T.tip           = cell2mat(SoilTable.tip(:,3));      %Soilmodel
+    Model.tip       = SoilTable.tip(:,8);              %SRD Model
+    YSR.tip         = SoilTable.tip(:,10);              %SRD Model
+    St.tip          = SoilTable.tip(:,11);              %SRD Model
+    Delta_phi.tip   = cell2mat(SoilTable.tip(:,7));    % Delta phi
+%     phi.tip = cell2mat(SoilTable.tip(:,9));    %phi
+    K_0.tip         = cell2mat(SoilTable.tip(:,12));    % K_0
+    
+    % Shaft values
+    gamma.shaft       = cell2mat(SoilTable.shaft(:,4));  %Unitweight
+    T.shaft           = cell2mat(SoilTable.shaft(:,3));      %Soilmodel
+    Model.shaft       = SoilTable.shaft(:,8);              %SRD Model
+    YSR.shaft         = SoilTable.shaft(:,10);              %SRD Model
+    St.shaft          = SoilTable.shaft(:,11);              %SRD Model
+    Delta_phi.shaft   = cell2mat(SoilTable.shaft(:,7));    % Delta phi
+%     phi.shaft = cell2mat(SoilTable.shaft(:,9));    %phi
+    K_0.shaft         = cell2mat(SoilTable.shaft(:,12));    % K_0
 
-    % CPT values onto z and convert to kPa
-    CPT(:,1) = cell2mat(SoilTable(:,5))*MPa;     %qc in kPa (end bearing)
-    CPT(:,2) = cell2mat(SoilTable(:,6))*MPa;     %fs in kPa (sleeve friction)
-    CPT(:,3) = T ;
-    CPT(:,4) = cell2mat(SoilTable(:,13))*MPa;    %Rf in kPa (friction ratio)
-    CPT(:,5) = cell2mat(SoilTable(:,14))*MPa;    %u2 in kPa (pore pressure)
+    %% CPT tip values onto z and convert to kPa
+    % Tip values
+    CPT.tip(:,1) = cell2mat(SoilTable.tip(:,5))*MPa;     %qc in kPa (end bearing)
+    CPT.tip(:,2) = cell2mat(SoilTable.tip(:,6))*MPa;     %fs in kPa (sleeve friction)
+    CPT.tip(:,3) = T.tip ;
+    CPT.tip(:,4) = cell2mat(SoilTable.tip(:,13));    %Rf in kPa (friction ratio)
+    CPT.tip(:,5) = cell2mat(SoilTable.tip(:,14))*MPa;    %u2 in kPa (pore pressure)
     
-    % Overburden pressure, sigma_v0
-    sigv = NaN(size(SoilTable,1),1);
-    sigv(1) = 0;
-    for i = 2:size(SoilTable,1)
-        sigv(i) = sigv(i-1)+ (z(i)-z(i-1))*(gamma(i-1)-10);
+    % Shaft values
+    CPT.shaft(:,1) = cell2mat(SoilTable.shaft(:,5))*MPa;     %qc in kPa (end bearing)
+    CPT.shaft(:,2) = cell2mat(SoilTable.shaft(:,6))*MPa;     %fs in kPa (sleeve friction)
+    CPT.shaft(:,3) = T.shaft ;
+    CPT.shaft(:,4) = cell2mat(SoilTable.shaft(:,13));    %Rf in kPa (friction ratio)
+    CPT.shaft(:,5) = cell2mat(SoilTable.shaft(:,14))*MPa;    %u2 in kPa (pore pressure)
+    
+    %% Overburden pressure, sigma_v0
+    sigv.tip = NaN(size(SoilTable.tip,1),1);
+    sigv.shaft = NaN(size(SoilTable.shaft,1),1);
+    sigv.tip(1) = 0;
+    sigv.shaft(1) = 0;
+    for i = 2:size(SoilTable.tip,1)
+        sigv.tip(i) = sigv.tip(i-1)+ (z(i)-z(i-1))*(gamma.tip(i-1)-10);
     end
-    sigv(1) = 0.01;  % Adjust first index at 0 depth so we dont divide by 0 at side friction calculation
+    for i = 2:size(SoilTable.shaft,1)
+        sigv.shaft(i) = sigv.shaft(i-1)+ (z(i)-z(i-1))*(gamma.shaft(i-1)-10);
+    end
+    sigv.tip(1) = 0.01;  % Adjust first index at 0 depth so we dont divide by 0 at side friction calculation
+    sigv.shaft(1) = 0.01;  % Adjust first index at 0 depth so we dont divide by 0 at side friction calculation
 
-    %    Compile matrix for unit skin friction ans vector for tip resistance
+    %%    Compile matrix for unit skin friction ans vector for tip resistance
     %------
         % Generating exponential-decay-matrix (vector for each AStep)
     z_D = Data.(loc{1}).Dmatrix(Data.(loc{1}).Dindex(:,2),1);   % Depths to analyse taken from D matrix
@@ -55,7 +80,7 @@ if nargin ==4 || nargin==5
 %         D_i = Diameter - wall_thickness; % calculate internal pile diameter
         
         for i = 1:n     %Loop over the soil profile depth   
-            SRD_model = Model{i};
+            SRD_model = Model.tip{i};
         
             switch SRD_model
                 case  'Alm_Hamre' % Case Model is Alm and Hamre
@@ -101,7 +126,8 @@ if nargin ==4 || nargin==5
     SRD.(loc{1}).Soil.QuakeDamp     = [SkinQuake' ToeQuake' SkinDamping' ToeDamping'];
     SRD.(loc{1}).Soil.LimDist       = 0;
     SRD.(loc{1}).Soil.Setup         = 1;
-    SRD.(loc{1}).Soil.SoilTable     = SoilTable;
+    SRD.(loc{1}).Soil.SoilTable.tip   = SoilTable.tip;
+    SRD.(loc{1}).Soil.SoilTable.shaft = SoilTable.shaft;
     SRD.(loc{1}).Soil.SRDMultiplier = SRDMultiplier;
     
 end

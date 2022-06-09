@@ -98,11 +98,11 @@ for locLoop = 1:size(locfirst,1)
         GeneralGWOplot(GE_Data,GE_SRD,Settings,A,PlotOpt,locations,locLoop)
 
         % Store the Data in a Variable
-        StoredData.Data = GE_Data;
+        StoredData.Data     = GE_Data;
         StoredData.Settings = Settings;
         StoredData.filelist = GE_filelist;
-        StoredData.A = A;
-        StoredData.SRD = GE_SRD;
+        StoredData.A        = A;
+        StoredData.SRD      = GE_SRD;
         save([pwd,'\Plots\DocumentationData',locations{locLoop,1},'.mat'],'StoredData')
 
         % Fatigue damage write to DB

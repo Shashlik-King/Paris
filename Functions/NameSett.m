@@ -67,23 +67,24 @@ for i = 1:length(index)
 end
 Settings.RefusalCrit                = cell2mat(Sett.Analysis(:,14));
 Settings.CPTData                    = cell2mat(Sett.Analysis(:,15));
-Settings.Excel                      = Sett.Analysis(:,16);
-Settings.Plotting                   = cell2mat(Sett.Analysis(:,17));
-Settings.OutPutStyle                = Sett.Analysis(:,18);     %PNGI
-Settings.TimeIncreament             = cell2mat(Sett.Analysis(:,19));    %PNGI
-Settings.DurationAnalysis           = cell2mat(Sett.Analysis(:,20));       %PNGI
-Settings.AssemWeight                = cell2mat(Sett.Analysis(:,21));     %PNGI
-Settings.SoilType                   = Sett.Analysis(:,22);     %PNGI
-Settings.EntrapedWater              = Sett.Analysis(:,23);     %PNGI
-Settings.NoiseMitRef                = cell2mat(Sett.Analysis(:,24)); 
+Settings.Excel_tip                  = Sett.Analysis(:,16);
+Settings.Excel_shaft                = Sett.Analysis(:,17);
+Settings.Plotting                   = cell2mat(Sett.Analysis(:,18));
+Settings.OutPutStyle                = Sett.Analysis(:,19);    
+Settings.TimeIncreament             = cell2mat(Sett.Analysis(:,20));  
+Settings.DurationAnalysis           = cell2mat(Sett.Analysis(:,21));     
+Settings.AssemWeight                = cell2mat(Sett.Analysis(:,22));    
+Settings.SoilType                   = Sett.Analysis(:,23);   
+Settings.EntrapedWater              = Sett.Analysis(:,24);    
+Settings.NoiseMitRef                = cell2mat(Sett.Analysis(:,25)); 
 Settings.ISNoiseMit                 = Settings.NoiseMitRef;   % Make a logical Variable 
 Settings.ISNoiseMit(Settings.ISNoiseMit>0) = 1;
 Settings.HybridSteps                = cell2mat(Sett.HybridSteps(:,1:2));
 Settings.StepsOfHammer              = cell2mat(Sett.EfficiencySteps(:,2));
-Settings.HammerBreakDepth           = cell2mat(Sett.Analysis(:,25));     %PNGI
+Settings.HammerBreakDepth           = cell2mat(Sett.Analysis(:,26));    
 Settings.HammerBreakDepth(Settings.HammerBreakDepth==0) = -5; % When the hammerbreak down is off , the applied  depth is -5 to avoid confusion in the code. 
-Settings.Residual_stress_anlysis    = cell2mat(Sett.Analysis(:,26)); 
-Settings.Hybrid_driving_analysis    = cell2mat(Sett.Analysis(:,27)); 
+Settings.Residual_stress_anlysis    = cell2mat(Sett.Analysis(:,27)); 
+Settings.Hybrid_driving_analysis    = cell2mat(Sett.Analysis(:,28)); 
 
 % GL
 Settings.COR            = cell2mat(Sett.Model(:,2));

@@ -2,39 +2,48 @@ function [fsi, fsres, qt, k, fs, SkinQuake, ToeQuake, SkinDamping, ToeDamping] =
 
 % i is the index of the soil 
 % j is the the index of z matrix (location of the tip)
+%% Tip resistance calculation
+if T.tip(i) == 1   %SAND
+    qt      = (0.1*CPT.tip(i,1)*(CPT.tip(i,1)/sigv.tip(i))^0.2);
+elseif T.tip(i) == 2  %CLAY with low to medium plasticity
+    qt      = 0.6*CPT.tip(i,1);
+elseif T.tip(i) == 3  %CLAY with high plasticity 
+    qt      = 0.6*CPT.tip(i,1);          
+elseif T.tip(i) == 4  %glauconite
+    qt      = (0.1*CPT.tip(i,1)*(CPT.tip(i,1)/sigv.tip(i))^0.2);        
+else
+    error(['Soil not defined for ' loc{1} ' in AlmHamre_2018.m function' ])
+end
 
-if T(i) == 1   %SAND
-    if phi(i) <= 0
-        error('Wrong input of phi for sand in AlmHamre.m - phi-5 used for calculation is negative ')
+%% Shaft friction calculation
+if T.shaft(i) == 1   %SAND
+    if phi.shaft(i) <= 0 
+        error('Wrong input of phi for sand in AlmHamre_2018 - phi-5 used for calculation is negative ')
     end
-    K       = (0.0132*CPT(i,1)*(sigv(i)/Pa)^(0.13))/sigv(i);
-    fsi     = 0.5*K*sigv(i)*tan((phi(i))*pi/180);                   % Friction only outside
+    K       = (0.0132*CPT.shaft(i,1)*(sigv.shaft(i)/Pa)^(0.13))/sigv.shaft(i);
+    fsi     = 0.5*K*sigv.shaft(i)*tan((phi.shaft(i))*pi/180);                   % Friction only outside
     fsres   = 0.2*fsi;
-    qt      = (0.1*CPT(i,1)*(CPT(i,1)/sigv(i))^0.2);
-    k       = ((CPT(i,1)/sigv(i))^(0.5))/80;
-elseif T(i) == 2  %CLAY with low to medium plasticity
-    fsres   = max(0.004*CPT(i,1)*(1-0.0025*CPT(i,1)/sigv(i)),0.002*CPT(i,1));
-    fsi     = CPT(i,2);
-    qt      = 0.6*CPT(i,1);
-    k       = ((CPT(i,1)/sigv(i))^(0.5))/80;
-elseif T(i) == 3  %CLAY with high plasticity 
-    fsres   = max(0.004*CPT(i,1)*(1-0.0025*CPT(i,1)/sigv(i)),0.002*CPT(i,1));
-    fsi     = 0.75*CPT(i,2);
-    qt      = 0.6*CPT(i,1);
-    k       = ((CPT(i,1)/sigv(i))^(0.5))/80;           
-elseif T(i) == 4  %glauconite
-    K       = (0.0132*CPT(i,1)*(sigv(i)/Pa)^(0.13))/sigv(i);
+    k       = ((CPT.shaft(i,1)/sigv.shaft(i))^(0.5))/80;
+elseif T.shaft(i) == 2  %CLAY with low to medium plasticity
+    fsres   = max(0.004*CPT.shaft(i,1)*(1-0.0025*CPT.shaft(i,1)/sigv.shaft(i)),0.002*CPT.shaft(i,1));
+    fsi     = CPT.shaft(i,2);
+    k       = ((CPT.shaft(i,1)/sigv.shaft(i))^(0.5))/80;
+elseif T.shaft(i) == 3  %CLAY with high plasticity 
+    fsres   = max(0.004*CPT.shaft(i,1)*(1-0.0025*CPT.shaft(i,1)/sigv.shaft(i)),0.002*CPT.shaft(i,1));
+    fsi     = 0.75*CPT.shaft(i,2);
+    k       = ((CPT.shaft(i,1)/sigv.shaft(i))^(0.5))/80;           
+elseif T.shaft(i) == 4  %glauconite
+    K       = (0.0132*CPT.shaft(i,1)*(sigv.shaft(i)/Pa)^(0.13))/sigv.shaft(i);
     if isnan(Glauconite_Rf_Multiplier{i})
        error(['Glauconite defined for ' loc{1} ' needs a multiplier for its higher shaft friction' ]) 
     elseif Glauconite_Rf_Multiplier{i} == -1
-        Rf = 100 * CPT(i,2)/CPT(i,1);
+        Rf = 100 * CPT.shaft(i,2)/CPT.shaft(i,1);
     else
         Rf = Glauconite_Rf_Multiplier{i};
     end    
-    fsi     = Rf* 0.5*K*sigv(i)*tan((phi(i))*pi/180);               % Friction only outside
+    fsi     = Rf* 0.5*K*sigv.shaft(i)*tan((phi.shaft(i))*pi/180);               % Friction only outside
     fsres   = 0.2*fsi;
-    qt      = (0.1*CPT(i,1)*(CPT(i,1)/sigv(i))^0.2);
-    k       = ((CPT(i,1)/sigv(i))^(0.5))/80;         
+    k       = ((CPT.shaft(i,1)/sigv.shaft(i))^(0.5))/80;         
 else
     error(['Soil not defined for ' loc{1} ' in AlmHamre_2018.m function' ])
 end
